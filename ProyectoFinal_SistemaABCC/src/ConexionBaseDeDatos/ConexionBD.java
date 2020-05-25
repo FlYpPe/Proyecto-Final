@@ -20,8 +20,8 @@ public class ConexionBD {
 			
 			Class.forName("com.mysql.cj.jdbc.Driver");	
 			
-			String URL = "jdbc:mysql://localhost:3306/BD_Escuela";
-			String url = "jdbc:mysql://localhost:3306/BD_Escuela?useTimezone=true&serverTimezone=UTC";
+			String URL = "jdbc:mysql://localhost:3306/proyecto";
+			String url = "jdbc:mysql://localhost:3306/proyecto?useTimezone=true&serverTimezone=UTC";
 			con = DriverManager.getConnection(url, "root", "felip");
 			
 			System.out.println("Conexion Establecida");
