@@ -1,12 +1,15 @@
 package Controlador;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.swing.table.AbstractTableModel;
+
 import ConexionBaseDeDatos.*;
 
-import Modelo.Alumno;
-
+/*
 public class Controlador {
 
 	public boolean agregarAlumno(Alumno a) {
@@ -42,7 +45,7 @@ public class Controlador {
 	}
 	
 	
-	public Alumno buscarAlumno(String numControl) {
+public Alumno buscarAlumno(String numControl) {
 		
 		
 		String sql = "SELECT * FROM Alumnos WHERE Num_Control = '"+numControl+"'";
@@ -64,5 +67,75 @@ public class Controlador {
 		
 		
 	}
+	
+}*/
+
+class crearTabla extends AbstractTableModel{
+
+	private ResultSet rsRegistros;
+	private ResultSetMetaData metaData;
+	
+	public crearTabla(ResultSet unResultSet) {
+		
+		this.rsRegistros = unResultSet;
+		try {
+			this.metaData = this.rsRegistros.getMetaData();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public int getColumnCount() {
+		
+		
+		try {
+			return metaData.getColumnCount();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	@Override
+	public int getRowCount() {
+		
+		
+		
+		try {
+			rsRegistros.last();
+			return rsRegistros.getRow();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+		
+	}
+
+	@Override
+	public Object getValueAt(int arg0, int arg1) {
+		
+		try {
+			rsRegistros.absolute(arg0 + 1);
+			return rsRegistros.getObject(arg1 + 1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
 	
 }
