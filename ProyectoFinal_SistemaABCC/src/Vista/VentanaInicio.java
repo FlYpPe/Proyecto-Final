@@ -17,62 +17,62 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;	
+import javax.swing.SwingUtilities;
 import Controlador.*;
 
-class Gui extends JFrame{
-	
+class Gui extends JFrame {
+
 	JTable tabla;
 	JMenuBar menuBar;
 	JMenu menuInicio;
 	JMenuItem menuAltas, menuCambio, menuBajas, menuConsultas;
-	JInternalFrame panels,IF_Cambio, IF_Bajas, IF_Consultas;
-	
+	JInternalFrame panels, IF_Cambio, IF_Bajas, IF_Consultas;
+
 	public Gui() {
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Sistema ABCC");
-		
+
 		setSize(700, 500);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		getContentPane().setBackground(Color.WHITE);
-		
+
 		menuBar = new JMenuBar();
 		menuInicio = new JMenu("Ver");
-		
+
 		menuAltas = new JMenuItem("Altas");
 		menuCambio = new JMenuItem("Cambio");
 		menuBajas = new JMenuItem("Bajas");
 		menuConsultas = new JMenuItem("Consultas");
-		
+
 		menuInicio.add(menuAltas);
 		menuInicio.add(menuCambio);
 		menuInicio.add(menuBajas);
 		menuInicio.add(menuConsultas);
 		menuBar.add(menuInicio);
 		setJMenuBar(menuBar);
-		
+
 		JPanel panelaltas = new JPanel();
 		panelaltas.setLayout(null);
-		panelaltas.setBounds(0, 0,700, 500);
+		panelaltas.setBounds(0, 0, 700, 500);
 		add(panelaltas);
-		
+
 		JPanel panelcambios = new JPanel();
 		panelcambios.setLayout(null);
-		panelcambios.setBounds(0, 0,700, 500);
+		panelcambios.setBounds(0, 0, 700, 500);
 		add(panelcambios);
-		
+
 		JPanel panelbajas = new JPanel();
 		panelbajas.setLayout(null);
-		panelbajas.setBounds(0, 0,700, 500);
+		panelbajas.setBounds(0, 0, 700, 500);
 		add(panelbajas);
-		
+
 		JPanel panelconsultas = new JPanel();
 		panelconsultas.setLayout(null);
-		panelconsultas.setBounds(0, 0,700, 500);
+		panelconsultas.setBounds(0, 0, 700, 500);
 		add(panelconsultas);
-		
+
 		menuAltas.addActionListener(new ActionListener() {
 			@Override
 
@@ -80,39 +80,61 @@ class Gui extends JFrame{
 
 				panelaltas.setVisible(true);
 				panelcambios.setVisible(false);
-				
+				panelbajas.setVisible(false);
+				panelconsultas.setVisible(false);
 			}
 		});
-		
+
 		menuCambio.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
+				panelaltas.setVisible(false);
 				panelcambios.setVisible(true);
+				panelbajas.setVisible(false);
+				panelconsultas.setVisible(false);
+
+			}
+		});
+
+		menuBajas.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				panelaltas.setVisible(false);
+				panelcambios.setVisible(false);
+				panelbajas.setVisible(true);
+				panelconsultas.setVisible(false);
 				
 			}
 		});
-		
-		
-		
-		
+
+		menuConsultas.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelaltas.setVisible(false);
+				panelcambios.setVisible(false);
+				panelbajas.setVisible(false);
+				panelconsultas.setVisible(true);
+
+			}
+		});
+
 		/*
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		panel .setBounds(10,10, 100,100);
-		add(panel);
-		*/
-		
-		//internal frames
-		
-		
+		 * JPanel panel = new JPanel(); panel.setLayout(new BorderLayout()); panel
+		 * .setBounds(10,10, 100,100); add(panel);
+		 */
+
+		// internal frames
 
 		// panelsc.setVisible(true);
 
-		 // agregar InternalFrame al DesktopPane
+		// agregar InternalFrame al DesktopPane
 
-		 // agreagr desktopPane al JFrame principal
+		// agreagr desktopPane al JFrame principal
 
 		JLabel lb0 = new JLabel("Ingrese los datos del alumno");
 		lb0.setBounds(10, 10, 130, 20);
@@ -176,43 +198,36 @@ class Gui extends JFrame{
 		JTextField t7 = new JTextField();
 		t7.setBounds(150, 130, 100, 20);
 		panelaltas.add(t7);
-		
 
 		add(panelaltas, BorderLayout.CENTER);
 		panelaltas.setVisible(false);
-		
-		
+
 		/*
-		
-		JButton b1 = new JButton();
-		b1.setBounds(10,120, 30,15);
-		panelsc.add(b1);
-		
-		b1.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				tabla =  new Controlador().retornarTabla("Ayuntamiento");
-				
-				
-				JScrollPane paneltabla = new JScrollPane(tabla);
-				paneltabla.setBounds(10,10,400, 200);
-				panelsc.add(paneltabla);
-				
-				
-				
-			}
-		});
-		*/
+		 * 
+		 * JButton b1 = new JButton(); b1.setBounds(10,120, 30,15); panelsc.add(b1);
+		 * 
+		 * b1.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent arg0) {
+		 * 
+		 * tabla = new Controlador().retornarTabla("Ayuntamiento");
+		 * 
+		 * 
+		 * JScrollPane paneltabla = new JScrollPane(tabla);
+		 * paneltabla.setBounds(10,10,400, 200); panelsc.add(paneltabla);
+		 * 
+		 * 
+		 * 
+		 * } });
+		 */
 	}
-	
+
 }
 
 public class VentanaInicio {
 
 	public static void main(String[] args) {
-		
+
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -221,8 +236,6 @@ public class VentanaInicio {
 
 			}
 		});
-		
-		
 
 	}
 
