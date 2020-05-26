@@ -24,7 +24,7 @@ public class ConexionBD {
 			String url = "jdbc:mysql://localhost:3306/proyecto?useTimezone=true&serverTimezone=UTC";
 			con = DriverManager.getConnection(url, "root", "felip");
 			
-			System.out.println("Conexion Establecida");
+			
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error del Driver");
