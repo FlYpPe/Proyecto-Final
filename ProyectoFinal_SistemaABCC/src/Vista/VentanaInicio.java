@@ -26,7 +26,7 @@ class Gui extends JFrame {
 	JMenuBar menuBar;
 	JMenu menuInicio;
 	JMenuItem menuAltas, menuCambio, menuBajas, menuConsultas;
-	JInternalFrame panels, IF_Cambio, IF_Bajas, IF_Consultas;
+	JInternalFrame panels, panelcambios, IF_Bajas, IF_Consultas;
 
 	public Gui() {
 		getContentPane().setLayout(null);
@@ -102,12 +102,12 @@ class Gui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				panelaltas.setVisible(false);
 				panelcambios.setVisible(false);
 				panelbajas.setVisible(true);
 				panelconsultas.setVisible(false);
-				
+
 			}
 		});
 
@@ -201,6 +201,69 @@ class Gui extends JFrame {
 
 		add(panelaltas, BorderLayout.CENTER);
 		panelaltas.setVisible(false);
+
+		// componentes cambio
+
+		JLabel blb0 = new JLabel("Ingrese los datos del alumno");
+		blb0.setBounds(10, 10, 130, 20);
+		panelcambios.add(blb0);
+
+		JLabel b1 = new JLabel("Numero de Control");
+		b1.setBounds(10, 40, 130, 20);
+		panelcambios.add(b1);
+
+		JTextField bt1 = new JTextField();
+		bt1.setBounds(10, 70, 100, 20);
+		panelcambios.add(bt1);
+
+		JLabel b2 = new JLabel("Nombre");
+		b2.setBounds(10, 100, 130, 20);
+		panelcambios.add(b2);
+
+		JTextField bt2 = new JTextField();
+		bt2.setBounds(10, 130, 100, 20);
+		panelcambios.add(bt2);
+
+		JLabel b3 = new JLabel("Primer ap");
+		b3.setBounds(10, 160, 130, 20);
+		panelcambios.add(b3);
+
+		JTextField bt3 = new JTextField();
+		bt3.setBounds(10, 190, 100, 20);
+		panelcambios.add(bt3);
+
+		JLabel b4 = new JLabel("Segundo ap");
+		b4.setBounds(10, 220, 130, 20);
+		panelcambios.add(b4);
+
+		JTextField bt4 = new JTextField();
+		bt4.setBounds(10, 250, 100, 20);
+		panelcambios.add(bt4);
+		// Num_Control | Nombre_Alumno | Primer_Ap_Alumno | Segundo_Ap_Alumno |
+		// Edad_Alumno | Semestre | Carrera
+		JLabel b5 = new JLabel("Edad");
+		b5.setBounds(10, 280, 130, 20);
+		panelcambios.add(b5);
+
+		JTextField bt5 = new JTextField();
+		bt5.setBounds(10, 310, 100, 20);
+		panelcambios.add(bt5);
+
+		JLabel b6 = new JLabel("Semestre");
+		b6.setBounds(150, 40, 130, 20);
+		panelcambios.add(b6);
+
+		JTextField bt6 = new JTextField();
+		bt6.setBounds(150, 70, 100, 20);
+		panelcambios.add(bt6);
+
+		JLabel b7 = new JLabel("Carrera");
+		b7.setBounds(150, 100, 130, 20);
+		panelcambios.add(b7);
+
+		JTextField bt7 = new JTextField();
+		bt7.setBounds(150, 130, 100, 20);
+		panelcambios.add(bt7);
 
 		/*
 		 * 
