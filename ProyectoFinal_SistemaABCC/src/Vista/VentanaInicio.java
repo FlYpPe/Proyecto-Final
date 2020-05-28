@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -36,7 +37,7 @@ class Gui extends JFrame {
 		setSize(700, 500);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setBackground(Color.BLACK);
 
 		menuBar = new JMenuBar();
 		menuInicio = new JMenu("Ver");
@@ -55,24 +56,25 @@ class Gui extends JFrame {
 
 		JPanel panelaltas = new JPanel();
 		panelaltas.setLayout(null);
-		panelaltas.setBounds(0, 0, 700, 500);
+		panelaltas.setBounds(100, 0, 600, 500);
 		add(panelaltas);
-
 		JPanel panelcambios = new JPanel();
 		panelcambios.setLayout(null);
 		panelcambios.setBounds(0, 0, 700, 500);
 		add(panelcambios);
-
+		panelcambios.setVisible(false);
 		JPanel panelbajas = new JPanel();
 		panelbajas.setLayout(null);
 		panelbajas.setBounds(0, 0, 700, 500);
 		add(panelbajas);
-
+		panelbajas.setVisible(false);
 		JPanel panelconsultas = new JPanel();
 		panelconsultas.setLayout(null);
 		panelconsultas.setBounds(0, 0, 700, 500);
 		add(panelconsultas);
-
+		panelconsultas.setVisible(false);
+		
+		
 		menuAltas.addActionListener(new ActionListener() {
 			@Override
 
@@ -122,25 +124,23 @@ class Gui extends JFrame {
 
 			}
 		});
-
-		/*
-		 * JPanel panel = new JPanel(); panel.setLayout(new BorderLayout()); panel
-		 * .setBounds(10,10, 100,100); add(panel);
-		 */
-
-		// internal frames
-
-		// panelsc.setVisible(true);
-
-		// agregar InternalFrame al DesktopPane
-
-		// agreagr desktopPane al JFrame principal
-
-		JLabel lb0 = new JLabel("Ingrese los datos del alumno");
-		lb0.setBounds(10, 10, 130, 20);
+		
+		
+		
+		
+		JButton bAcambio = new JButton("Ayuntamiento");
+		bAcambio.setBounds(0,0,100,80);
+		bAcambio.setBackground(Color.white);
+		add(bAcambio);
+		
+		
+		
+		JLabel lb0 = new JLabel("Ingrese los datos para ingresar al ayuntamiento");
+		lb0.setBounds(10, 10, 250, 20);
 		panelaltas.add(lb0);
-
-		JLabel lb1 = new JLabel("Numero de Control");
+		
+		
+		JLabel lb1 = new JLabel("Departamento");
 		lb1.setBounds(10, 40, 130, 20);
 		panelaltas.add(lb1);
 
@@ -148,7 +148,7 @@ class Gui extends JFrame {
 		t1.setBounds(10, 70, 100, 20);
 		panelaltas.add(t1);
 
-		JLabel lb2 = new JLabel("Nombre");
+		JLabel lb2 = new JLabel("Estado de funcionamiento");
 		lb2.setBounds(10, 100, 130, 20);
 		panelaltas.add(lb2);
 
@@ -156,56 +156,55 @@ class Gui extends JFrame {
 		t2.setBounds(10, 130, 100, 20);
 		panelaltas.add(t2);
 
-		JLabel lb3 = new JLabel("Primer ap");
-		lb3.setBounds(10, 160, 130, 20);
+		JLabel lb3 = new JLabel("Cantidad de personal en la area");
+		lb3.setBounds(10, 160, 200, 20);
 		panelaltas.add(lb3);
 
-		JTextField t3 = new JTextField();
-		t3.setBounds(10, 190, 100, 20);
-		panelaltas.add(t3);
+		String items[] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+		JComboBox<String> comboTemperaturas = new JComboBox<String>(items);
+		comboTemperaturas.setBounds(10, 190, 100, 20);
+		panelaltas.add(comboTemperaturas);
+		comboTemperaturas.setBackground(Color.WHITE);
 
-		JLabel lb4 = new JLabel("Segundo ap");
-		lb4.setBounds(10, 220, 130, 20);
+		JLabel lb4 = new JLabel("Nombre del encargado");
+		lb4.setBounds(10, 220, 300, 20);
 		panelaltas.add(lb4);
 
 		JTextField t4 = new JTextField();
 		t4.setBounds(10, 250, 100, 20);
 		panelaltas.add(t4);
-		// Num_Control | Nombre_Alumno | Primer_Ap_Alumno | Segundo_Ap_Alumno |
-		// Edad_Alumno | Semestre | Carrera
-		JLabel lb5 = new JLabel("Edad");
-		lb5.setBounds(10, 280, 130, 20);
-		panelaltas.add(lb5);
-
-		JTextField t5 = new JTextField();
-		t5.setBounds(10, 310, 100, 20);
-		panelaltas.add(t5);
-
-		JLabel lb6 = new JLabel("Semestre");
-		lb6.setBounds(150, 40, 130, 20);
-		panelaltas.add(lb6);
-
-		JTextField t6 = new JTextField();
-
-		t6.setBounds(150, 70, 100, 20);
-		panelaltas.add(t6);
-
-		JLabel lb7 = new JLabel("Carrera");
-		lb7.setText("carrera");
-		lb7.setBounds(150, 100, 130, 20);
-		panelaltas.add(lb7);
-
-		JTextField t7 = new JTextField();
-		t7.setBounds(150, 130, 100, 20);
-		panelaltas.add(t7);
 
 		add(panelaltas, BorderLayout.CENTER);
-		panelaltas.setVisible(false);
+		panelaltas.setBackground(Color.white);
 
-		// componentes cambio
+		JButton bAltas = new JButton("Dar de alta");
+		bAltas.setBounds(200, 200, 100, 35);
+		bAltas.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (t1.getText().equals("") || t2.getText().equals("") || t4.getText().equals("")) {
+					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+				} else {
+					
+					
+
+					try {
+
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+					}
+				}
+
+			}
+
+		});
+		bAltas.setBackground(Color.WHITE);
+		panelaltas.add(bAltas);
 
 		JLabel blb0 = new JLabel("Ingrese los datos del alumno");
-		blb0.setBounds(10, 10, 130, 20);
+		blb0.setBounds(10, 10, 200, 20);
 		panelcambios.add(blb0);
 
 		JLabel b1 = new JLabel("Numero de Control");
@@ -264,6 +263,8 @@ class Gui extends JFrame {
 		JTextField bt7 = new JTextField();
 		bt7.setBounds(150, 130, 100, 20);
 		panelcambios.add(bt7);
+
+		panelcambios.setVisible(false);
 
 		/*
 		 * 
