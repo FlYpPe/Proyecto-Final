@@ -2,11 +2,13 @@ package Vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -25,9 +27,9 @@ class Gui extends JFrame {
 
 	JTable tabla;
 	JMenuBar menuBar;
-	JMenu menuInicio;
-	JMenuItem menuAltas, menuCambio, menuBajas, menuConsultas;
-	JInternalFrame panels, panelcambios, IF_Bajas, IF_Consultas;
+	JMenu menuInicio, menuTools;
+	JMenuItem menuAltas, menuCambio, menuBajas, menuConsultas, menuReestablecer;
+	JPanel panActual;
 
 	public Gui() {
 		getContentPane().setLayout(null);
@@ -41,7 +43,10 @@ class Gui extends JFrame {
 
 		menuBar = new JMenuBar();
 		menuInicio = new JMenu("Ver");
+		menuTools = new JMenu("Tools");
+		menuReestablecer = new JMenuItem("Reestablecer Componentes");
 
+		menuTools.add(menuReestablecer);
 		menuAltas = new JMenuItem("Altas");
 		menuCambio = new JMenuItem("Cambio");
 		menuBajas = new JMenuItem("Bajas");
@@ -52,12 +57,14 @@ class Gui extends JFrame {
 		menuInicio.add(menuBajas);
 		menuInicio.add(menuConsultas);
 		menuBar.add(menuInicio);
+		menuBar.add(menuTools);
 		setJMenuBar(menuBar);
 
 		JPanel panelaltas = new JPanel();
 		panelaltas.setLayout(null);
 		panelaltas.setBounds(100, 0, 600, 500);
 		add(panelaltas);
+		panActual = panelaltas;
 		JPanel panelcambios = new JPanel();
 		panelcambios.setLayout(null);
 		panelcambios.setBounds(0, 0, 700, 500);
@@ -73,8 +80,17 @@ class Gui extends JFrame {
 		panelconsultas.setBounds(0, 0, 700, 500);
 		add(panelconsultas);
 		panelconsultas.setVisible(false);
-		
-		
+
+		menuReestablecer.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				restablecerComponentes(panActual.getComponents());
+
+			}
+		});
+
 		menuAltas.addActionListener(new ActionListener() {
 			@Override
 
@@ -84,6 +100,7 @@ class Gui extends JFrame {
 				panelcambios.setVisible(false);
 				panelbajas.setVisible(false);
 				panelconsultas.setVisible(false);
+				panActual = panelaltas;
 			}
 		});
 
@@ -96,7 +113,7 @@ class Gui extends JFrame {
 				panelcambios.setVisible(true);
 				panelbajas.setVisible(false);
 				panelconsultas.setVisible(false);
-
+				panActual = panelcambios;
 			}
 		});
 
@@ -109,7 +126,7 @@ class Gui extends JFrame {
 				panelcambios.setVisible(false);
 				panelbajas.setVisible(true);
 				panelconsultas.setVisible(false);
-
+				panActual = panelbajas;
 			}
 		});
 
@@ -121,24 +138,14 @@ class Gui extends JFrame {
 				panelcambios.setVisible(false);
 				panelbajas.setVisible(false);
 				panelconsultas.setVisible(true);
-
+				panActual = panelconsultas;
 			}
 		});
-		
-		
-		
-		
 
-		
-		
-		
-		
-		
 		JLabel lb0 = new JLabel("Ingrese los datos para ingresar al ayuntamiento");
 		lb0.setBounds(10, 10, 250, 20);
 		panelaltas.add(lb0);
-		
-		
+
 		JLabel lb1 = new JLabel("Departamento");
 		lb1.setBounds(10, 40, 130, 20);
 		panelaltas.add(lb1);
@@ -151,10 +158,9 @@ class Gui extends JFrame {
 
 		JTextField t1c = new JTextField();
 		t1c.setBounds(10, 70, 100, 20);
-		
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		
+
 		JLabel lb2 = new JLabel("Estado de funcionamiento");
 		lb2.setBounds(10, 100, 130, 20);
 		panelaltas.add(lb2);
@@ -164,34 +170,30 @@ class Gui extends JFrame {
 		panelaltas.add(t2);
 		JTextField t2b = new JTextField();
 		t2b.setBounds(10, 130, 100, 20);
-		String items[] = { "500", "1000", "1500", "2000", "2500"};
+		String items[] = { "500", "1000", "1500", "2000", "2500" };
 		JComboBox<String> combo0 = new JComboBox<String>(items);
 		combo0.setBounds(10, 130, 100, 20);
 		combo0.setBackground(Color.WHITE);
-		
-		
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		JLabel lb3 = new JLabel("Cantidad de personal en la area");
 		lb3.setBounds(10, 160, 200, 20);
 		panelaltas.add(lb3);
 
-		
 		JComboBox<String> combo2 = new JComboBox<String>(items);
 		combo2.setBounds(10, 190, 100, 20);
 		panelaltas.add(combo2);
 		combo2.setBackground(Color.WHITE);
-		
+
 		JComboBox<String> comboB2 = new JComboBox<String>(items);
 		comboB2.setBounds(10, 190, 100, 20);
 		comboB2.setBackground(Color.WHITE);
-		
+
 		JComboBox<String> comboC2 = new JComboBox<String>(items);
 		comboC2.setBounds(10, 190, 100, 20);
 		comboC2.setBackground(Color.WHITE);
-		
-		
-		
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		JLabel lb4 = new JLabel("Nombre del encargado");
@@ -201,134 +203,145 @@ class Gui extends JFrame {
 		JTextField t4 = new JTextField();
 		t4.setBounds(10, 250, 100, 20);
 		panelaltas.add(t4);
-		
+
 		JComboBox<String> combo3 = new JComboBox<String>(items);
 		combo3.setBounds(10, 250, 100, 20);
 		combo3.setBackground(Color.WHITE);
-		
+
 		JTextField t4b = new JTextField();
 		t4b.setBounds(10, 250, 100, 20);
 
 		add(panelaltas, BorderLayout.CENTER);
 		panelaltas.setBackground(Color.white);
-		
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		JButton bAcambio = new JButton("Ayuntamiento");
-		bAcambio.setBounds(0,0,100,60);
+		bAcambio.setBounds(0, 0, 100, 60);
 		bAcambio.setBackground(Color.white);
 		add(bAcambio);
-		
+
 		bAcambio.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				panelaltas.remove(t1);
 				panelaltas.remove(t2);
 				panelaltas.remove(combo2);
 				panelaltas.remove(t4);
-				
+
 				panelaltas.remove(t1b);
 				panelaltas.remove(t2b);
 				panelaltas.remove(comboB2);
 				panelaltas.remove(combo3);
-				
+
 				panelaltas.remove(t1c);
 				panelaltas.remove(combo0);
 				panelaltas.remove(comboC2);
 				panelaltas.remove(t4b);
-				
+
 				panelaltas.add(t1);
 				panelaltas.add(t2);
-			    panelaltas.add(combo2);
+				panelaltas.add(combo2);
 				panelaltas.add(t4);
-				
+
+				lb1.setText("Departamento");
+				lb2.setText("Estado de funcionamiento");
+				lb3.setText("Cantidad de personal en la area");
+				lb4.setText("Nombre del encargado");
+
 				panelaltas.setVisible(false);
 				panelaltas.setVisible(true);
-				
+
 			}
 		});
-		
 
 		add(bAcambio);
-		
+
 		JButton bPcambio = new JButton("Personal");
-		bPcambio.setBounds(0,60,100,60);
+		bPcambio.setBounds(0, 60, 100, 60);
 		bPcambio.setBackground(Color.white);
-		
-		
+
 		bPcambio.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				panelaltas.remove(t1);
 				panelaltas.remove(t2);
 				panelaltas.remove(combo2);
 				panelaltas.remove(t4);
-				
+
 				panelaltas.remove(t1b);
 				panelaltas.remove(t2b);
 				panelaltas.remove(comboB2);
 				panelaltas.remove(combo3);
-				
+
 				panelaltas.remove(t1c);
 				panelaltas.remove(combo0);
 				panelaltas.remove(comboC2);
 				panelaltas.remove(t4b);
-				
+
 				panelaltas.add(t1b);
 				panelaltas.add(t2b);
 				panelaltas.add(comboB2);
 				panelaltas.add(combo3);
-				
+
+				lb1.setText("Nombre");
+				lb2.setText("Area");
+				lb3.setText("Sueldo");
+				lb4.setText("Horas Diarias");
+
 				panelaltas.setVisible(false);
 				panelaltas.setVisible(true);
-				
+
 			}
 		});
 		add(bPcambio);
-		
+
 		JButton bScambio = new JButton("Sistema");
-		bScambio.setBounds(0,120,100,60);
+		bScambio.setBounds(0, 120, 100, 60);
 		bScambio.setBackground(Color.white);
-		
-		
+
 		bScambio.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				panelaltas.remove(t1c);
 				panelaltas.remove(combo0);
 				panelaltas.remove(comboC2);
 				panelaltas.remove(t4b);
-				
+
 				panelaltas.remove(t1);
 				panelaltas.remove(t2);
 				panelaltas.remove(combo2);
 				panelaltas.remove(t4);
-				
+
 				panelaltas.remove(t1b);
 				panelaltas.remove(t2b);
 				panelaltas.remove(comboB2);
 				panelaltas.remove(combo3);
-				
+
 				panelaltas.add(t1c);
 				panelaltas.add(combo0);
 				panelaltas.add(comboC2);
 				panelaltas.add(t4b);
-				
-				
+
+				lb1.setText("Estrategia");
+				lb2.setText("Vehiculos");
+				lb3.setText("Cantidad Empleados");
+				lb4.setText("Estado");
+
 				panelaltas.setVisible(false);
 				panelaltas.setVisible(true);
-				
+
 			}
 		});
+
 		add(bScambio);
 
-	
 		JButton bAltas = new JButton("Dar de alta");
 		bAltas.setBounds(200, 200, 100, 35);
 		bAltas.addActionListener(new ActionListener() {
@@ -339,13 +352,14 @@ class Gui extends JFrame {
 					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
 
 				} else {
-					
-					
+					restablecerComponentes(panelaltas.getComponents());
+					System.out.println("asd");
 
 					try {
 
 					} catch (Exception e2) {
 						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
 					}
 				}
 
@@ -415,14 +429,12 @@ class Gui extends JFrame {
 		JTextField bt7 = new JTextField();
 		bt7.setBounds(150, 130, 100, 20);
 		panelcambios.add(bt7);
-
 		panelcambios.setVisible(false);
 
 		/*
+		 * JButton bot = new JButton("aqui"); bot.setBounds(300,220, 30,15); add(bot);
 		 * 
-		 * JButton b1 = new JButton(); b1.setBounds(10,120, 30,15); panelsc.add(b1);
-		 * 
-		 * b1.addActionListener(new ActionListener() {
+		 * bot.addActionListener(new ActionListener() {
 		 * 
 		 * @Override public void actionPerformed(ActionEvent arg0) {
 		 * 
@@ -430,12 +442,26 @@ class Gui extends JFrame {
 		 * 
 		 * 
 		 * JScrollPane paneltabla = new JScrollPane(tabla);
-		 * paneltabla.setBounds(10,10,400, 200); panelsc.add(paneltabla);
+		 * paneltabla.setBounds(10,10,400, 200); add(paneltabla);
 		 * 
 		 * 
 		 * 
 		 * } });
 		 */
+
+	}
+
+	public void restablecerComponentes(Component... component) {
+
+		for (Component c : component) {
+			// Comparison con getClass
+
+			if (c instanceof JTextField)
+				((JTextField) c).setText("");
+			else if (c instanceof JComboBox)
+				((JComboBox) c).setSelectedIndex(0);
+		}
+
 	}
 
 }
