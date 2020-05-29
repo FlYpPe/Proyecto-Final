@@ -2,6 +2,7 @@ package ConexionBaseDeDatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,8 +10,8 @@ import java.sql.Statement;
 public class ConexionBD {
 
 	private Connection con;
-	private Statement stm;
-	
+	//private Statement stm;
+	private PreparedStatement pstm;
 	private ResultSet rs;
 	
 	public ConexionBD() {
@@ -44,8 +45,10 @@ public class ConexionBD {
 	public boolean ejInstr(String sql) {
 		
 		try {
-		stm = con.createStatement();
-		int r = stm.executeUpdate(sql);
+			
+		pstm = con.prepareStatement(sql);
+		//stm = con.createStatement();
+		int r = pstm.executeUpdate(sql);
 			return r == 1 ? true : false ;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -62,9 +65,10 @@ public class ConexionBD {
 		
 		
 		try {
-		stm = con.createStatement();
+			pstm = con.prepareStatement(sql);
+		//stm = con.createStatement();
 		
-		return stm.executeQuery(sql);
+		return pstm.executeQuery(sql);
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -77,9 +81,13 @@ public class ConexionBD {
 		
 		
 	}
+	
+	
 public void cerrarConeccion() {
 	try {
-		stm.close();
+		
+		pstm.close();
+		//stm.close();
 		con.close();
 	}catch (Exception e) {
 		// TODO: handle exception
