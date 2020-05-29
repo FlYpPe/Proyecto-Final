@@ -128,10 +128,9 @@ class Gui extends JFrame {
 		
 		
 		
-		JButton bAcambio = new JButton("Ayuntamiento");
-		bAcambio.setBounds(0,0,100,80);
-		bAcambio.setBackground(Color.white);
-		add(bAcambio);
+
+		
+		
 		
 		
 		
@@ -147,7 +146,15 @@ class Gui extends JFrame {
 		JTextField t1 = new JTextField();
 		t1.setBounds(10, 70, 100, 20);
 		panelaltas.add(t1);
+		JTextField t1b = new JTextField();
+		t1b.setBounds(10, 70, 100, 20);
 
+		JTextField t1c = new JTextField();
+		t1c.setBounds(10, 70, 100, 20);
+		
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
 		JLabel lb2 = new JLabel("Estado de funcionamiento");
 		lb2.setBounds(10, 100, 130, 20);
 		panelaltas.add(lb2);
@@ -155,16 +162,37 @@ class Gui extends JFrame {
 		JTextField t2 = new JTextField();
 		t2.setBounds(10, 130, 100, 20);
 		panelaltas.add(t2);
+		JTextField t2b = new JTextField();
+		t2b.setBounds(10, 130, 100, 20);
+		String items[] = { "500", "1000", "1500", "2000", "2500"};
+		JComboBox<String> combo0 = new JComboBox<String>(items);
+		combo0.setBounds(10, 130, 100, 20);
+		combo0.setBackground(Color.WHITE);
+		
+		
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		JLabel lb3 = new JLabel("Cantidad de personal en la area");
 		lb3.setBounds(10, 160, 200, 20);
 		panelaltas.add(lb3);
 
-		String items[] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
-		JComboBox<String> comboTemperaturas = new JComboBox<String>(items);
-		comboTemperaturas.setBounds(10, 190, 100, 20);
-		panelaltas.add(comboTemperaturas);
-		comboTemperaturas.setBackground(Color.WHITE);
+		
+		JComboBox<String> combo2 = new JComboBox<String>(items);
+		combo2.setBounds(10, 190, 100, 20);
+		panelaltas.add(combo2);
+		combo2.setBackground(Color.WHITE);
+		
+		JComboBox<String> comboB2 = new JComboBox<String>(items);
+		comboB2.setBounds(10, 190, 100, 20);
+		comboB2.setBackground(Color.WHITE);
+		
+		JComboBox<String> comboC2 = new JComboBox<String>(items);
+		comboC2.setBounds(10, 190, 100, 20);
+		comboC2.setBackground(Color.WHITE);
+		
+		
+		
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		JLabel lb4 = new JLabel("Nombre del encargado");
 		lb4.setBounds(10, 220, 300, 20);
@@ -173,10 +201,134 @@ class Gui extends JFrame {
 		JTextField t4 = new JTextField();
 		t4.setBounds(10, 250, 100, 20);
 		panelaltas.add(t4);
+		
+		JComboBox<String> combo3 = new JComboBox<String>(items);
+		combo3.setBounds(10, 250, 100, 20);
+		combo3.setBackground(Color.WHITE);
+		
+		JTextField t4b = new JTextField();
+		t4b.setBounds(10, 250, 100, 20);
 
 		add(panelaltas, BorderLayout.CENTER);
 		panelaltas.setBackground(Color.white);
+		
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		JButton bAcambio = new JButton("Ayuntamiento");
+		bAcambio.setBounds(0,0,100,60);
+		bAcambio.setBackground(Color.white);
+		add(bAcambio);
+		
+		bAcambio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				panelaltas.remove(t1);
+				panelaltas.remove(t2);
+				panelaltas.remove(combo2);
+				panelaltas.remove(t4);
+				
+				panelaltas.remove(t1b);
+				panelaltas.remove(t2b);
+				panelaltas.remove(comboB2);
+				panelaltas.remove(combo3);
+				
+				panelaltas.remove(t1c);
+				panelaltas.remove(combo0);
+				panelaltas.remove(comboC2);
+				panelaltas.remove(t4b);
+				
+				panelaltas.add(t1);
+				panelaltas.add(t2);
+			    panelaltas.add(combo2);
+				panelaltas.add(t4);
+				
+				panelaltas.setVisible(false);
+				panelaltas.setVisible(true);
+				
+			}
+		});
+		
 
+		add(bAcambio);
+		
+		JButton bPcambio = new JButton("Personal");
+		bPcambio.setBounds(0,60,100,60);
+		bPcambio.setBackground(Color.white);
+		
+		
+		bPcambio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				panelaltas.remove(t1);
+				panelaltas.remove(t2);
+				panelaltas.remove(combo2);
+				panelaltas.remove(t4);
+				
+				panelaltas.remove(t1b);
+				panelaltas.remove(t2b);
+				panelaltas.remove(comboB2);
+				panelaltas.remove(combo3);
+				
+				panelaltas.remove(t1c);
+				panelaltas.remove(combo0);
+				panelaltas.remove(comboC2);
+				panelaltas.remove(t4b);
+				
+				panelaltas.add(t1b);
+				panelaltas.add(t2b);
+				panelaltas.add(comboB2);
+				panelaltas.add(combo3);
+				
+				panelaltas.setVisible(false);
+				panelaltas.setVisible(true);
+				
+			}
+		});
+		add(bPcambio);
+		
+		JButton bScambio = new JButton("Sistema");
+		bScambio.setBounds(0,120,100,60);
+		bScambio.setBackground(Color.white);
+		
+		
+		bScambio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				panelaltas.remove(t1c);
+				panelaltas.remove(combo0);
+				panelaltas.remove(comboC2);
+				panelaltas.remove(t4b);
+				
+				panelaltas.remove(t1);
+				panelaltas.remove(t2);
+				panelaltas.remove(combo2);
+				panelaltas.remove(t4);
+				
+				panelaltas.remove(t1b);
+				panelaltas.remove(t2b);
+				panelaltas.remove(comboB2);
+				panelaltas.remove(combo3);
+				
+				panelaltas.add(t1c);
+				panelaltas.add(combo0);
+				panelaltas.add(comboC2);
+				panelaltas.add(t4b);
+				
+				
+				panelaltas.setVisible(false);
+				panelaltas.setVisible(true);
+				
+			}
+		});
+		add(bScambio);
+
+	
 		JButton bAltas = new JButton("Dar de alta");
 		bAltas.setBounds(200, 200, 100, 35);
 		bAltas.addActionListener(new ActionListener() {
