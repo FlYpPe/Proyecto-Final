@@ -35,7 +35,7 @@ class Gui extends JFrame {
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Sistema ABCC");
-
+		setResizable(false);
 		setSize(700, 500);
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -67,19 +67,18 @@ class Gui extends JFrame {
 		panActual = panelaltas;
 		JPanel panelcambios = new JPanel();
 		panelcambios.setLayout(null);
-		panelcambios.setBounds(0, 0, 700, 500);
+		panelcambios.setBounds(100, 0, 600, 500);
 		add(panelcambios);
 		panelcambios.setVisible(false);
 		JPanel panelbajas = new JPanel();
 		panelbajas.setLayout(null);
-		panelbajas.setBounds(0, 0, 700, 500);
+		panelbajas.setBounds(700, 0, 700, 500);
 		add(panelbajas);
-		panelbajas.setVisible(false);
 		JPanel panelconsultas = new JPanel();
 		panelconsultas.setLayout(null);
-		panelconsultas.setBounds(0, 0, 700, 500);
+		panelconsultas.setBounds(700, 0, 700, 500);
 		add(panelconsultas);
-		panelconsultas.setVisible(false);
+		
 
 		menuReestablecer.addActionListener(new ActionListener() {
 
@@ -95,16 +94,19 @@ class Gui extends JFrame {
 			@Override
 
 			public void actionPerformed(ActionEvent e) {
-
-				panelaltas.setVisible(true);
-				panelcambios.setVisible(false);
-				panelbajas.setVisible(false);
-				panelconsultas.setVisible(false);
+				
+				
+				
+				panelaltas.setBounds(100,0,600,500);
+				panelbajas.setBounds(700,0,700,500);
+				panelconsultas.setBounds(700,0,700,500);
 				panActual = panelaltas;
 				
-				bAcambio.setVisible(true);
-				bPcambio.setVisible(true);
-				bScambio.setVisible(true);
+				
+				bAcambio.setBounds(0,0,100,60);
+				bPcambio.setBounds(0,60,100,60);
+				bScambio.setBounds(0,120,100,60);
+				
 				
 			}
 		});
@@ -113,16 +115,15 @@ class Gui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				panelaltas.setVisible(false);
-				panelcambios.setVisible(true);
-				panelbajas.setVisible(false);
-				panelconsultas.setVisible(false);
-				panActual = panelcambios;
+				panelaltas.setBounds(100,0,600,500);
+				panelbajas.setBounds(700,0,700,500);
+				panelconsultas.setBounds(700,0,700,500);
+				panActual = panelaltas;
 				
-				bAcambio.setVisible(false);
-				bPcambio.setVisible(false);
-				bScambio.setVisible(false);
+				
+				bAcambio.setBounds(0,0,100,60);
+				bPcambio.setBounds(0,60,100,60);
+				bScambio.setBounds(0,120,100,60);
 			}
 		});
 
@@ -131,15 +132,16 @@ class Gui extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				panelaltas.setVisible(false);
-				panelcambios.setVisible(false);
-				panelbajas.setVisible(true);
-				panelconsultas.setVisible(false);
-				panActual = panelbajas;
+				panelaltas.setBounds(700,0,600,500);
+				panelbajas.setBounds(0,0,700,500);
+				panelconsultas.setBounds(700,0,700,500);
+				panActual = panelaltas;
 				
-				bAcambio.setVisible(false);
-				bPcambio.setVisible(false);
-				bScambio.setVisible(false);
+				
+				bAcambio.setBounds(700,0,100,60);
+				bPcambio.setBounds(700,60,100,60);
+				bScambio.setBounds(700,120,100,60);
+				
 			}
 		});
 
@@ -147,15 +149,15 @@ class Gui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				panelaltas.setVisible(false);
-				panelcambios.setVisible(false);
-				panelbajas.setVisible(false);
-				panelconsultas.setVisible(true);
-				panActual = panelconsultas;
+				panelaltas.setBounds(700,0,600,500);
+				panelbajas.setBounds(700,0,700,500);
+				panelconsultas.setBounds(0,0,700,500);
+				panActual = panelaltas;
 				
-				bAcambio.setVisible(false);
-				bPcambio.setVisible(false);
-				bScambio.setVisible(false);
+				
+        		bAcambio.setBounds(700,0,100,60);
+				bPcambio.setBounds(700,60,100,60);
+				bScambio.setBounds(700,120,100,60);;
 			}
 		});
 
@@ -463,68 +465,135 @@ class Gui extends JFrame {
 		add(bScambio);
 
 
+		
+		
+		
 
-		JLabel blb0 = new JLabel("Ingrese los datos del alumno");
-		blb0.setBounds(10, 10, 200, 20);
-		panelcambios.add(blb0);
+		bAcambio.addActionListener(new ActionListener() {
 
-		JLabel b1 = new JLabel("Numero de Control");
-		b1.setBounds(10, 40, 130, 20);
-		panelcambios.add(b1);
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				opReg = "Ay";
+				panelaltas.remove(t1);
+				panelaltas.remove(t2);
+				panelaltas.remove(combo2);
+				panelaltas.remove(t4);
 
-		JTextField bt1 = new JTextField();
-		bt1.setBounds(10, 70, 100, 20);
-		panelcambios.add(bt1);
+				panelaltas.remove(t1b);
+				panelaltas.remove(t2b);
+				panelaltas.remove(comboB2);
+				panelaltas.remove(combo3);
 
-		JLabel b2 = new JLabel("Nombre");
-		b2.setBounds(10, 100, 130, 20);
-		panelcambios.add(b2);
+				panelaltas.remove(t1c);
+				panelaltas.remove(combo0);
+				panelaltas.remove(comboC2);
+				panelaltas.remove(t4b);
 
-		JTextField bt2 = new JTextField();
-		bt2.setBounds(10, 130, 100, 20);
-		panelcambios.add(bt2);
+				panelaltas.add(t1);
+				panelaltas.add(t2);
+				panelaltas.add(combo2);
+				panelaltas.add(t4);
 
-		JLabel b3 = new JLabel("Primer ap");
-		b3.setBounds(10, 160, 130, 20);
-		panelcambios.add(b3);
+				lb1.setText("Departamento");
+				lb2.setText("Estado de funcionamiento");
+				lb3.setText("Cantidad de personal en la area");
+				lb4.setText("Nombre del encargado");
 
-		JTextField bt3 = new JTextField();
-		bt3.setBounds(10, 190, 100, 20);
-		panelcambios.add(bt3);
+				panelaltas.setVisible(false);
+				panelaltas.setVisible(true);
+				
+				
+			}
+		});
+		
+		add(bAcambio);
 
-		JLabel b4 = new JLabel("Segundo ap");
-		b4.setBounds(10, 220, 130, 20);
-		panelcambios.add(b4);
+		bPcambio = new JButton("Personal");
+		bPcambio.setBounds(0, 60, 100, 60);
+		bPcambio.setBackground(Color.white);
 
-		JTextField bt4 = new JTextField();
-		bt4.setBounds(10, 250, 100, 20);
-		panelcambios.add(bt4);
-		// Num_Control | Nombre_Alumno | Primer_Ap_Alumno | Segundo_Ap_Alumno |
-		// Edad_Alumno | Semestre | Carrera
-		JLabel b5 = new JLabel("Edad");
-		b5.setBounds(10, 280, 130, 20);
-		panelcambios.add(b5);
+		bPcambio.addActionListener(new ActionListener() {
 
-		JTextField bt5 = new JTextField();
-		bt5.setBounds(10, 310, 100, 20);
-		panelcambios.add(bt5);
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				opReg = "Pe";
+				panelaltas.remove(t1);
+				panelaltas.remove(t2);
+				panelaltas.remove(combo2);
+				panelaltas.remove(t4);
 
-		JLabel b6 = new JLabel("Semestre");
-		b6.setBounds(150, 40, 130, 20);
-		panelcambios.add(b6);
+				panelaltas.remove(t1b);
+				panelaltas.remove(t2b);
+				panelaltas.remove(comboB2);
+				panelaltas.remove(combo3);
 
-		JTextField bt6 = new JTextField();
-		bt6.setBounds(150, 70, 100, 20);
-		panelcambios.add(bt6);
+				panelaltas.remove(t1c);
+				panelaltas.remove(combo0);
+				panelaltas.remove(comboC2);
+				panelaltas.remove(t4b);
 
-		JLabel b7 = new JLabel("Carrera");
-		b7.setBounds(150, 100, 130, 20);
-		panelcambios.add(b7);
+				panelaltas.add(t1b);
+				panelaltas.add(t2b);
+				panelaltas.add(comboB2);
+				panelaltas.add(combo3);
 
-		JTextField bt7 = new JTextField();
-		bt7.setBounds(150, 130, 100, 20);
-		panelcambios.add(bt7);
-		panelcambios.setVisible(false);
+				lb1.setText("Nombre");
+				lb2.setText("Area");
+				lb3.setText("Sueldo");
+				lb4.setText("Horas Diarias");
+
+				panelaltas.setVisible(false);
+				panelaltas.setVisible(true);
+				
+				
+			}
+		});
+		add(bPcambio);
+
+		bScambio = new JButton("Sistema");
+		bScambio.setBounds(0, 120, 100, 60);
+		bScambio.setBackground(Color.white);
+
+		bScambio.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				opReg = "Si";
+				panelaltas.remove(t1c);
+				panelaltas.remove(combo0);
+				panelaltas.remove(comboC2);
+				panelaltas.remove(t4b);
+
+				panelaltas.remove(t1);
+				panelaltas.remove(t2);
+				panelaltas.remove(combo2);
+				panelaltas.remove(t4);
+
+				panelaltas.remove(t1b);
+				panelaltas.remove(t2b);
+				panelaltas.remove(comboB2);
+				panelaltas.remove(combo3);
+
+				panelaltas.add(t1c);
+				panelaltas.add(combo0);
+				panelaltas.add(comboC2);
+				panelaltas.add(t4b);
+
+				lb1.setText("Estrategia");
+				lb2.setText("Vehiculos");
+				lb3.setText("Cantidad Empleados");
+				lb4.setText("Estado");
+
+				panelaltas.setVisible(false);
+				panelaltas.setVisible(true);
+				
+			}
+		});
+		
+		
+		
+
+
 
 		/*
 		 * JButton bot = new JButton("aqui"); bot.setBounds(300,220, 30,15); add(bot);
