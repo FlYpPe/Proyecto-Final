@@ -16,8 +16,8 @@ public class Controlador {
 	
 	 public boolean agregarRegistro(String tabla, String values) { 
 		 
-		 String sql ="insert into"+ tabla + values ;
-			  
+		 String sql ="insert into "+ tabla+" " + values ;
+			  System.out.println(sql);
 			  return new ConexionBD().ejInstr(sql);
 			  
 			  }

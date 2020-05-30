@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -24,12 +23,13 @@ import javax.swing.SwingUtilities;
 import Controlador.*;
 
 class Gui extends JFrame {
-
+	JButton bAcambio, bPcambio,bScambio;
 	JTable tabla;
 	JMenuBar menuBar;
 	JMenu menuInicio, menuTools;
 	JMenuItem menuAltas, menuCambio, menuBajas, menuConsultas, menuReestablecer;
 	JPanel panActual;
+	String opReg;
 
 	public Gui() {
 		getContentPane().setLayout(null);
@@ -101,6 +101,11 @@ class Gui extends JFrame {
 				panelbajas.setVisible(false);
 				panelconsultas.setVisible(false);
 				panActual = panelaltas;
+				
+				bAcambio.setVisible(true);
+				bPcambio.setVisible(true);
+				bScambio.setVisible(true);
+				
 			}
 		});
 
@@ -114,6 +119,10 @@ class Gui extends JFrame {
 				panelbajas.setVisible(false);
 				panelconsultas.setVisible(false);
 				panActual = panelcambios;
+				
+				bAcambio.setVisible(false);
+				bPcambio.setVisible(false);
+				bScambio.setVisible(false);
 			}
 		});
 
@@ -127,6 +136,10 @@ class Gui extends JFrame {
 				panelbajas.setVisible(true);
 				panelconsultas.setVisible(false);
 				panActual = panelbajas;
+				
+				bAcambio.setVisible(false);
+				bPcambio.setVisible(false);
+				bScambio.setVisible(false);
 			}
 		});
 
@@ -139,6 +152,10 @@ class Gui extends JFrame {
 				panelbajas.setVisible(false);
 				panelconsultas.setVisible(true);
 				panActual = panelconsultas;
+				
+				bAcambio.setVisible(false);
+				bPcambio.setVisible(false);
+				bScambio.setVisible(false);
 			}
 		});
 
@@ -216,7 +233,108 @@ class Gui extends JFrame {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		JButton bAcambio = new JButton("Ayuntamiento");
+		opReg = "Ay";
+		
+		JButton bAltas = new JButton("Dar de alta");
+		bAltas.setBounds(200, 200, 100, 35);
+		bAltas.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (opReg.equals("Ay")) {
+					
+				
+				
+				if (t1.getText().equals("") || t2.getText().equals("") || t4.getText().equals("")) {
+					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+				} else {
+					
+					String sql = "";
+					sql = "Values( \'" + t1.getText() + "\' , \'" + t2.getText() + "\' ," + Integer.parseInt((String) combo2.getSelectedItem())+ ", \'" + t4.getText() + " \'); ";					
+					System.out.println(sql);
+					
+					new Controlador().agregarRegistro("Ayuntamiento", sql);
+					
+					
+					try {
+
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+					}
+				}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+			}else if (opReg.equals("Pe")) {
+				
+				if (t1b.getText().equals("") || t2b.getText().equals("")) {
+					
+					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+				} else {
+					
+					String sql = "";
+					sql = "Values( \'" + t2b.getText() + "\' , \'" + t2b.getText() + "\' ," + Integer.parseInt((String) comboB2.getSelectedItem())+ ", " + Integer.parseInt((String) combo3.getSelectedItem()) + " ); ";
+					new Controlador().agregarRegistro("Personal", sql);
+					try {
+
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+					}
+				}
+				
+				
+				/*
+				panelaltas.add(t1b);
+				panelaltas.add(t2b);
+				panelaltas.add(comboB2);
+				panelaltas.add(combo3);
+				*/
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+			}else if (opReg.equals("Si")) {
+				
+				if (t1c.getText().equals("") || t4b.getText().equals("")) {
+					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+				} else {
+					
+					
+					String sql = "";
+					sql = "Values( \'" + t1c.getText() + "\' , " + Integer.parseInt((String) combo0.getSelectedItem()) + " ," + Integer.parseInt((String) comboC2.getSelectedItem()) + ", \'" + t4b.getText() + "\'); ";					
+					System.out.println(sql);
+					
+					new Controlador().agregarRegistro("SistemaRecoleccion", sql);
+					
+
+					try {
+
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+					}
+				}
+				
+				
+				
+				/*
+				panelaltas.add(t1c);
+				panelaltas.add(combo0);
+				panelaltas.add(comboC2);
+				panelaltas.add(t4b);
+				*/
+				
+			}
+}
+		});
+		
+		
+		bAltas.setBackground(Color.WHITE);
+		panelaltas.add(bAltas);
+		
+		
+		
+		bAcambio = new JButton("Ayuntamiento");
 		bAcambio.setBounds(0, 0, 100, 60);
 		bAcambio.setBackground(Color.white);
 		add(bAcambio);
@@ -225,7 +343,7 @@ class Gui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
+				opReg = "Ay";
 				panelaltas.remove(t1);
 				panelaltas.remove(t2);
 				panelaltas.remove(combo2);
@@ -253,13 +371,14 @@ class Gui extends JFrame {
 
 				panelaltas.setVisible(false);
 				panelaltas.setVisible(true);
-
+				
+				
 			}
 		});
-
+		
 		add(bAcambio);
 
-		JButton bPcambio = new JButton("Personal");
+		bPcambio = new JButton("Personal");
 		bPcambio.setBounds(0, 60, 100, 60);
 		bPcambio.setBackground(Color.white);
 
@@ -267,7 +386,7 @@ class Gui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
+				opReg = "Pe";
 				panelaltas.remove(t1);
 				panelaltas.remove(t2);
 				panelaltas.remove(combo2);
@@ -295,12 +414,13 @@ class Gui extends JFrame {
 
 				panelaltas.setVisible(false);
 				panelaltas.setVisible(true);
-
+				
+				
 			}
 		});
 		add(bPcambio);
 
-		JButton bScambio = new JButton("Sistema");
+		bScambio = new JButton("Sistema");
 		bScambio.setBounds(0, 120, 100, 60);
 		bScambio.setBackground(Color.white);
 
@@ -308,7 +428,7 @@ class Gui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
+				opReg = "Si";
 				panelaltas.remove(t1c);
 				panelaltas.remove(combo0);
 				panelaltas.remove(comboC2);
@@ -336,38 +456,13 @@ class Gui extends JFrame {
 
 				panelaltas.setVisible(false);
 				panelaltas.setVisible(true);
-
+				
 			}
 		});
 
 		add(bScambio);
 
-		JButton bAltas = new JButton("Dar de alta");
-		bAltas.setBounds(200, 200, 100, 35);
-		bAltas.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (t1.getText().equals("") || t2.getText().equals("") || t4.getText().equals("")) {
-					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
-
-				} else {
-					restablecerComponentes(panelaltas.getComponents());
-					System.out.println("asd");
-
-					try {
-
-					} catch (Exception e2) {
-						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
-
-					}
-				}
-
-			}
-
-		});
-		bAltas.setBackground(Color.WHITE);
-		panelaltas.add(bAltas);
 
 		JLabel blb0 = new JLabel("Ingrese los datos del alumno");
 		blb0.setBounds(10, 10, 200, 20);
