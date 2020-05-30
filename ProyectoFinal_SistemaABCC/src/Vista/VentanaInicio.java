@@ -21,9 +21,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import Controlador.*;
+import Modelo.ModeloAyunta;
 
 class Gui extends JFrame {
-	JButton bAcambio, bPcambio,bScambio;
+	JButton bAcambio, bPcambio, bScambio, bChecar;
 	JTable tabla;
 	JMenuBar menuBar;
 	JMenu menuInicio, menuTools;
@@ -78,7 +79,6 @@ class Gui extends JFrame {
 		panelconsultas.setLayout(null);
 		panelconsultas.setBounds(700, 0, 700, 500);
 		add(panelconsultas);
-		
 
 		menuReestablecer.addActionListener(new ActionListener() {
 
@@ -94,20 +94,17 @@ class Gui extends JFrame {
 			@Override
 
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				
-				panelaltas.setBounds(100,0,600,500);
-				panelbajas.setBounds(700,0,700,500);
-				panelconsultas.setBounds(700,0,700,500);
+
+				panelaltas.setBounds(100, 0, 600, 500);
+				panelbajas.setBounds(700, 0, 700, 500);
+				panelconsultas.setBounds(700, 0, 700, 500);
 				panActual = panelaltas;
-				
-				
-				bAcambio.setBounds(0,0,100,60);
-				bPcambio.setBounds(0,60,100,60);
-				bScambio.setBounds(0,120,100,60);
-				
-				
+
+				bAcambio.setBounds(0, 0, 100, 60);
+				bPcambio.setBounds(0, 60, 100, 60);
+				bScambio.setBounds(0, 120, 100, 60);
+				bChecar.setBounds(700, 200, 100, 35);
+
 			}
 		});
 
@@ -115,15 +112,17 @@ class Gui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				panelaltas.setBounds(100,0,600,500);
-				panelbajas.setBounds(700,0,700,500);
-				panelconsultas.setBounds(700,0,700,500);
+				panelaltas.setBounds(100, 0, 600, 500);
+				panelbajas.setBounds(700, 0, 700, 500);
+				panelconsultas.setBounds(700, 0, 700, 500);
 				panActual = panelaltas;
+
+				bAcambio.setBounds(0, 0, 100, 60);
+				bPcambio.setBounds(0, 60, 100, 60);
+				bScambio.setBounds(0, 120, 100, 60);
+				bChecar.setBounds(200, 100, 100, 35);
 				
 				
-				bAcambio.setBounds(0,0,100,60);
-				bPcambio.setBounds(0,60,100,60);
-				bScambio.setBounds(0,120,100,60);
 			}
 		});
 
@@ -132,16 +131,15 @@ class Gui extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				panelaltas.setBounds(700,0,600,500);
-				panelbajas.setBounds(0,0,700,500);
-				panelconsultas.setBounds(700,0,700,500);
+				panelaltas.setBounds(700, 0, 600, 500);
+				panelbajas.setBounds(0, 0, 700, 500);
+				panelconsultas.setBounds(700, 0, 700, 500);
 				panActual = panelaltas;
-				
-				
-				bAcambio.setBounds(700,0,100,60);
-				bPcambio.setBounds(700,60,100,60);
-				bScambio.setBounds(700,120,100,60);
-				
+
+				bAcambio.setBounds(700, 0, 100, 60);
+				bPcambio.setBounds(700, 60, 100, 60);
+				bScambio.setBounds(700, 120, 100, 60);
+				bChecar.setBounds(700, 200, 100, 35);
 			}
 		});
 
@@ -149,15 +147,16 @@ class Gui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				panelaltas.setBounds(700,0,600,500);
-				panelbajas.setBounds(700,0,700,500);
-				panelconsultas.setBounds(0,0,700,500);
+				panelaltas.setBounds(700, 0, 600, 500);
+				panelbajas.setBounds(700, 0, 700, 500);
+				panelconsultas.setBounds(0, 0, 700, 500);
 				panActual = panelaltas;
+
+				bAcambio.setBounds(700, 0, 100, 60);
+				bPcambio.setBounds(700, 60, 100, 60);
+				bScambio.setBounds(700, 120, 100, 60);
+				bChecar.setBounds(700, 200, 100, 35);
 				
-				
-        		bAcambio.setBounds(700,0,100,60);
-				bPcambio.setBounds(700,60,100,60);
-				bScambio.setBounds(700,120,100,60);;
 			}
 		});
 
@@ -236,7 +235,7 @@ class Gui extends JFrame {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		opReg = "Ay";
-		
+
 		JButton bAltas = new JButton("Dar de alta");
 		bAltas.setBounds(200, 200, 100, 35);
 		bAltas.addActionListener(new ActionListener() {
@@ -244,98 +243,90 @@ class Gui extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (opReg.equals("Ay")) {
-					
-				
-				
-				if (t1.getText().equals("") || t2.getText().equals("") || t4.getText().equals("")) {
-					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
 
-				} else {
-					
-					String sql = "";
-					sql = "Values( \'" + t1.getText() + "\' , \'" + t2.getText() + "\' ," + Integer.parseInt((String) combo2.getSelectedItem())+ ", \'" + t4.getText() + " \'); ";					
-					System.out.println(sql);
-					
-					new Controlador().agregarRegistro("Ayuntamiento", sql);
-					
-					
-					try {
-
-					} catch (Exception e2) {
+					if (t1.getText().equals("") || t2.getText().equals("") || t4.getText().equals("")) {
 						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
 
+					} else {
+
+						String sql = "";
+						sql = "Values( \'" + t1.getText() + "\' , \'" + t2.getText() + "\' ,"
+								+ Integer.parseInt((String) combo2.getSelectedItem()) + ", \'" + t4.getText()
+								+ " \'); ";
+						System.out.println(sql);
+
+						new Controlador().agregarRegistro("Ayuntamiento", sql);
+
+						try {
+
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+						}
 					}
-				}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-			}else if (opReg.equals("Pe")) {
-				
-				if (t1b.getText().equals("") || t2b.getText().equals("")) {
-					
-					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+				} else if (opReg.equals("Pe")) {
 
-				} else {
-					
-					String sql = "";
-					sql = "Values( \'" + t2b.getText() + "\' , \'" + t2b.getText() + "\' ," + Integer.parseInt((String) comboB2.getSelectedItem())+ ", " + Integer.parseInt((String) combo3.getSelectedItem()) + " ); ";
-					new Controlador().agregarRegistro("Personal", sql);
-					try {
+					if (t1b.getText().equals("") || t2b.getText().equals("")) {
 
-					} catch (Exception e2) {
 						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
 
+					} else {
+
+						String sql = "";
+						sql = "Values( \'" + t2b.getText() + "\' , \'" + t2b.getText() + "\' ,"
+								+ Integer.parseInt((String) comboB2.getSelectedItem()) + ", "
+								+ Integer.parseInt((String) combo3.getSelectedItem()) + " ); ";
+						new Controlador().agregarRegistro("Personal", sql);
+						try {
+
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+						}
 					}
-				}
-				
-				
-				/*
-				panelaltas.add(t1b);
-				panelaltas.add(t2b);
-				panelaltas.add(comboB2);
-				panelaltas.add(combo3);
-				*/
+
+					/*
+					 * panelaltas.add(t1b); panelaltas.add(t2b); panelaltas.add(comboB2);
+					 * panelaltas.add(combo3);
+					 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-			}else if (opReg.equals("Si")) {
-				
-				if (t1c.getText().equals("") || t4b.getText().equals("")) {
-					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+				} else if (opReg.equals("Si")) {
 
-				} else {
-					
-					
-					String sql = "";
-					sql = "Values( \'" + t1c.getText() + "\' , " + Integer.parseInt((String) combo0.getSelectedItem()) + " ," + Integer.parseInt((String) comboC2.getSelectedItem()) + ", \'" + t4b.getText() + "\'); ";					
-					System.out.println(sql);
-					
-					new Controlador().agregarRegistro("SistemaRecoleccion", sql);
-					
-
-					try {
-
-					} catch (Exception e2) {
+					if (t1c.getText().equals("") || t4b.getText().equals("")) {
 						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
 
+					} else {
+
+						String sql = "";
+						sql = "Values( \'" + t1c.getText() + "\' , "
+								+ Integer.parseInt((String) combo0.getSelectedItem()) + " ,"
+								+ Integer.parseInt((String) comboC2.getSelectedItem()) + ", \'" + t4b.getText()
+								+ "\'); ";
+						System.out.println(sql);
+
+						new Controlador().agregarRegistro("SistemaRecoleccion", sql);
+
+						try {
+
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+						}
 					}
+
+					/*
+					 * panelaltas.add(t1c); panelaltas.add(combo0); panelaltas.add(comboC2);
+					 * panelaltas.add(t4b);
+					 */
+
 				}
-				
-				
-				
-				/*
-				panelaltas.add(t1c);
-				panelaltas.add(combo0);
-				panelaltas.add(comboC2);
-				panelaltas.add(t4b);
-				*/
-				
 			}
-}
 		});
-		
-		
+
 		bAltas.setBackground(Color.WHITE);
 		panelaltas.add(bAltas);
-		
-		
-		
+
 		bAcambio = new JButton("Ayuntamiento");
 		bAcambio.setBounds(0, 0, 100, 60);
 		bAcambio.setBackground(Color.white);
@@ -373,11 +364,10 @@ class Gui extends JFrame {
 
 				panelaltas.setVisible(false);
 				panelaltas.setVisible(true);
-				
-				
+
 			}
 		});
-		
+
 		add(bAcambio);
 
 		bPcambio = new JButton("Personal");
@@ -416,8 +406,7 @@ class Gui extends JFrame {
 
 				panelaltas.setVisible(false);
 				panelaltas.setVisible(true);
-				
-				
+
 			}
 		});
 		add(bPcambio);
@@ -458,142 +447,139 @@ class Gui extends JFrame {
 
 				panelaltas.setVisible(false);
 				panelaltas.setVisible(true);
-				
+
 			}
 		});
 
 		add(bScambio);
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		
-		
-		
+		bChecar = new JButton("Revisar");
+		bChecar.setBounds(200, 700, 80, 30);
 
-		bAcambio.addActionListener(new ActionListener() {
+		bChecar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				opReg = "Ay";
-				panelaltas.remove(t1);
-				panelaltas.remove(t2);
-				panelaltas.remove(combo2);
-				panelaltas.remove(t4);
+				//System.out.println(new Controlador().revisar("dsf"));
+				new Controlador().actualizar(new ModeloAyunta("qwe", "qwe", 10, "actu"));
+				if (opReg.equals("Ay")) {
 
-				panelaltas.remove(t1b);
-				panelaltas.remove(t2b);
-				panelaltas.remove(comboB2);
-				panelaltas.remove(combo3);
+					
+					
+					
+					
+					
+					
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+				} else if (opReg.equals("Pe")) {
+					
+					
+					
+					
+					
+					
+					/*
+					 * panelaltas.add(t1b); panelaltas.add(t2b); panelaltas.add(comboB2);
+					 * panelaltas.add(combo3);
+					 */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+				} else if (opReg.equals("Si")) {
 
-				panelaltas.remove(t1c);
-				panelaltas.remove(combo0);
-				panelaltas.remove(comboC2);
-				panelaltas.remove(t4b);
+					
+					
 
-				panelaltas.add(t1);
-				panelaltas.add(t2);
-				panelaltas.add(combo2);
-				panelaltas.add(t4);
-
-				lb1.setText("Departamento");
-				lb2.setText("Estado de funcionamiento");
-				lb3.setText("Cantidad de personal en la area");
-				lb4.setText("Nombre del encargado");
-
-				panelaltas.setVisible(false);
-				panelaltas.setVisible(true);
-				
+				}
 				
 			}
 		});
 		
-		add(bAcambio);
 
-		bPcambio = new JButton("Personal");
-		bPcambio.setBounds(0, 60, 100, 60);
-		bPcambio.setBackground(Color.white);
+		panelaltas.add(bChecar);
 
-		bPcambio.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				opReg = "Pe";
-				panelaltas.remove(t1);
-				panelaltas.remove(t2);
-				panelaltas.remove(combo2);
-				panelaltas.remove(t4);
-
-				panelaltas.remove(t1b);
-				panelaltas.remove(t2b);
-				panelaltas.remove(comboB2);
-				panelaltas.remove(combo3);
-
-				panelaltas.remove(t1c);
-				panelaltas.remove(combo0);
-				panelaltas.remove(comboC2);
-				panelaltas.remove(t4b);
-
-				panelaltas.add(t1b);
-				panelaltas.add(t2b);
-				panelaltas.add(comboB2);
-				panelaltas.add(combo3);
-
-				lb1.setText("Nombre");
-				lb2.setText("Area");
-				lb3.setText("Sueldo");
-				lb4.setText("Horas Diarias");
-
-				panelaltas.setVisible(false);
-				panelaltas.setVisible(true);
-				
-				
-			}
-		});
-		add(bPcambio);
-
-		bScambio = new JButton("Sistema");
-		bScambio.setBounds(0, 120, 100, 60);
-		bScambio.setBackground(Color.white);
-
-		bScambio.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				opReg = "Si";
-				panelaltas.remove(t1c);
-				panelaltas.remove(combo0);
-				panelaltas.remove(comboC2);
-				panelaltas.remove(t4b);
-
-				panelaltas.remove(t1);
-				panelaltas.remove(t2);
-				panelaltas.remove(combo2);
-				panelaltas.remove(t4);
-
-				panelaltas.remove(t1b);
-				panelaltas.remove(t2b);
-				panelaltas.remove(comboB2);
-				panelaltas.remove(combo3);
-
-				panelaltas.add(t1c);
-				panelaltas.add(combo0);
-				panelaltas.add(comboC2);
-				panelaltas.add(t4b);
-
-				lb1.setText("Estrategia");
-				lb2.setText("Vehiculos");
-				lb3.setText("Cantidad Empleados");
-				lb4.setText("Estado");
-
-				panelaltas.setVisible(false);
-				panelaltas.setVisible(true);
-				
-			}
-		});
-		
-		
-		
-
-
+		/*
+		 * 
+		 * 
+		 * bAcambio.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent arg0) { opReg = "Ay";
+		 * panelaltas.remove(t1); panelaltas.remove(t2); panelaltas.remove(combo2);
+		 * panelaltas.remove(t4);
+		 * 
+		 * panelaltas.remove(t1b); panelaltas.remove(t2b); panelaltas.remove(comboB2);
+		 * panelaltas.remove(combo3);
+		 * 
+		 * panelaltas.remove(t1c); panelaltas.remove(combo0);
+		 * panelaltas.remove(comboC2); panelaltas.remove(t4b);
+		 * 
+		 * panelaltas.add(t1); panelaltas.add(t2); panelaltas.add(combo2);
+		 * panelaltas.add(t4);
+		 * 
+		 * lb1.setText("Departamento"); lb2.setText("Estado de funcionamiento");
+		 * lb3.setText("Cantidad de personal en la area");
+		 * lb4.setText("Nombre del encargado");
+		 * 
+		 * panelaltas.setVisible(false); panelaltas.setVisible(true);
+		 * 
+		 * 
+		 * } });
+		 * 
+		 * add(bAcambio);
+		 * 
+		 * bPcambio = new JButton("Personal"); bPcambio.setBounds(0, 60, 100, 60);
+		 * bPcambio.setBackground(Color.white);
+		 * 
+		 * bPcambio.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent arg0) { opReg = "Pe";
+		 * panelaltas.remove(t1); panelaltas.remove(t2); panelaltas.remove(combo2);
+		 * panelaltas.remove(t4);
+		 * 
+		 * panelaltas.remove(t1b); panelaltas.remove(t2b); panelaltas.remove(comboB2);
+		 * panelaltas.remove(combo3);
+		 * 
+		 * panelaltas.remove(t1c); panelaltas.remove(combo0);
+		 * panelaltas.remove(comboC2); panelaltas.remove(t4b);
+		 * 
+		 * panelaltas.add(t1b); panelaltas.add(t2b); panelaltas.add(comboB2);
+		 * panelaltas.add(combo3);
+		 * 
+		 * lb1.setText("Nombre"); lb2.setText("Area"); lb3.setText("Sueldo");
+		 * lb4.setText("Horas Diarias");
+		 * 
+		 * panelaltas.setVisible(false); panelaltas.setVisible(true);
+		 * 
+		 * 
+		 * } }); add(bPcambio);
+		 * 
+		 * bScambio = new JButton("Sistema"); bScambio.setBounds(0, 120, 100, 60);
+		 * bScambio.setBackground(Color.white);
+		 * 
+		 * bScambio.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent arg0) { opReg = "Si";
+		 * panelaltas.remove(t1c); panelaltas.remove(combo0);
+		 * panelaltas.remove(comboC2); panelaltas.remove(t4b);
+		 * 
+		 * panelaltas.remove(t1); panelaltas.remove(t2); panelaltas.remove(combo2);
+		 * panelaltas.remove(t4);
+		 * 
+		 * panelaltas.remove(t1b); panelaltas.remove(t2b); panelaltas.remove(comboB2);
+		 * panelaltas.remove(combo3);
+		 * 
+		 * panelaltas.add(t1c); panelaltas.add(combo0); panelaltas.add(comboC2);
+		 * panelaltas.add(t4b);
+		 * 
+		 * lb1.setText("Estrategia"); lb2.setText("Vehiculos");
+		 * lb3.setText("Cantidad Empleados"); lb4.setText("Estado");
+		 * 
+		 * panelaltas.setVisible(false); panelaltas.setVisible(true);
+		 * 
+		 * } });
+		 * 
+		 */
 
 		/*
 		 * JButton bot = new JButton("aqui"); bot.setBounds(300,220, 30,15); add(bot);
