@@ -3,8 +3,14 @@ package Vista;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -20,10 +26,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.plaf.basic.BasicBorders.ButtonBorder;
+
 import Controlador.*;
 import Modelo.ModeloAyunta;
 
 class Gui extends JFrame {
+		
 	JButton bAcambio, bPcambio, bScambio, bChecar;
 	JTable tabla;
 	JMenuBar menuBar;
@@ -32,6 +41,8 @@ class Gui extends JFrame {
 	JPanel panActual;
 	String opReg, opBaja;
 	JScrollPane paneltabla;
+	ImageIcon imagen;
+	Icon icono;
 
 	public Gui() {
 		getContentPane().setLayout(null);
@@ -42,7 +53,7 @@ class Gui extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		getContentPane().setBackground(Color.BLACK);
-
+		
 		menuBar = new JMenuBar();
 		menuInicio = new JMenu("Ver");
 		menuTools = new JMenu("Tools");
@@ -66,6 +77,9 @@ class Gui extends JFrame {
 		panelaltas.setLayout(null);
 		panelaltas.setBounds(100, 0, 600, 500);
 		add(panelaltas);
+		
+		
+		
 		panActual = panelaltas;
 		JPanel panelcambios = new JPanel();
 		panelcambios.setLayout(null);
@@ -81,7 +95,8 @@ class Gui extends JFrame {
 		panelconsultas.setLayout(null);
 		panelconsultas.setBounds(700, 0, 700, 500);
 		add(panelconsultas);
-
+		
+		
 		menuReestablecer.addActionListener(new ActionListener() {
 
 			@Override
@@ -326,11 +341,15 @@ class Gui extends JFrame {
 		});
 
 		bAltas.setBackground(Color.WHITE);
+		
 		panelaltas.add(bAltas);
 
 		bAcambio = new JButton("Ayuntamiento");
 		bAcambio.setBounds(0, 0, 100, 60);
 		bAcambio.setBackground(Color.white);
+		imagen = new ImageIcon("src/Imagenes/Ayuntamiento.png");
+		icono = new ImageIcon(imagen.getImage().getScaledInstance(bAcambio.getWidth(), bAcambio.getHeight(), Image.SCALE_DEFAULT));
+		bAcambio.setIcon(icono);
 		add(bAcambio);
 
 		bAcambio.addActionListener(new ActionListener() {
@@ -524,9 +543,9 @@ class Gui extends JFrame {
 		tborr.setBounds(200, 120, 140, 25);
 		panelbajas.add(tborr);
 
-		JButton borrar = new JButton("Eliminar");
+		JButton borrar = new JButton();
 		borrar.setBounds(200, 155, 80, 30);
-		panelbajas.add(borrar);
+		
 
 		borrar.addActionListener(new ActionListener() {
 
@@ -573,7 +592,14 @@ class Gui extends JFrame {
 
 			}
 		});
-
+		
+		
+		
+		
+		
+		panelbajas.add(borrar);
+		
+		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -608,7 +634,7 @@ class Gui extends JFrame {
 		JTextField tco = new JTextField();
 		tco.setBounds(200, 120, 140, 25);
 		panelconsultas.add(tco);
-
+		
 		JButton consultar = new JButton("Eliminar");
 		consultar.setBounds(200, 155, 80, 30);
 		panelconsultas.add(consultar);
@@ -619,12 +645,14 @@ class Gui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				if (!tco.getText().equals("")) {
+					
+					
 					try {
 						paneltabla.removeAll();
 					} catch (Exception e2) {
-						System.out.println("Asda");
 						// TODO: handle exception
 					}
+					
 					String sql;
 					if (opBaja.equals("Ayuntamiento")) {
 
@@ -637,9 +665,29 @@ class Gui extends JFrame {
 						add(paneltabla);
 
 					} else if (opBaja.equals("Personal")) {
+						
+						
+						tabla = new Controlador()
+								.retornarTabla("Personal Where Nombre = '" + tco.getText() + "'");
 
+						paneltabla = new JScrollPane(tabla);
+
+						paneltabla.setBounds(200, 200, 400, 200);
+						add(paneltabla);
+						
+						
 					} else if (opBaja.equals("Sistema Recoleccion")) {
+						
+						
+						tabla = new Controlador()
+								.retornarTabla("SistemaRecoleccion Where Estrategia = '" + tco.getText() + "'");
 
+						paneltabla = new JScrollPane(tabla);
+
+						paneltabla.setBounds(200, 200, 400, 200);
+						add(paneltabla);
+						
+						
 					}
 
 				} else {
@@ -650,7 +698,7 @@ class Gui extends JFrame {
 
 			}
 		});
-
+/*
 		JButton bot = new JButton("aqui");
 		bot.setBounds(300, 220, 30, 15);
 		add(bot);
@@ -668,7 +716,7 @@ class Gui extends JFrame {
 
 			}
 		});
-
+*/
 	}
 
 	public void restablecerComponentes(Component... component) {
@@ -686,6 +734,62 @@ class Gui extends JFrame {
 
 }
 
+class Login extends JFrame{
+	
+	public Login() {
+		getContentPane().setLayout(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("Login");
+		//setResizable(false);
+		setSize(700, 500);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		getContentPane().setBackground(Color.white);
+		
+		JPanel panel =  new JPanel();
+		panel.setLayout(null);
+		
+		panel.setBorder(BorderFactory.createTitledBorder("Loggin"));
+		panel.setBounds(75,75,500,300);
+		panel.setBackground(Color.white);
+		add(panel);
+		
+		JLabel lb1 = new JLabel("Usuario");
+		lb1.setBounds(170,30,100,20);
+		panel.add(lb1);
+		
+		JTextField t1 = new JTextField();
+		t1.setBounds(170,60,150,25);
+		panel.add(t1);
+		
+		JLabel lb2 = new JLabel("Contraseña");
+		lb2.setBounds(170,95,100,20);
+		panel.add(lb2);
+		
+		JTextField t2 = new JTextField();
+		t2.setBounds(170,115,150,25);
+		panel.add(t2);
+		
+		JButton b1 = new JButton("Ingresar");
+		b1.setBounds(190,155,100,25);
+		panel.add(b1);
+		
+		b1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		
+	}
+	
+}
+
+
+
+
 public class VentanaInicio {
 
 	public static void main(String[] args) {
@@ -694,7 +798,8 @@ public class VentanaInicio {
 
 			@Override
 			public void run() {
-				new Gui();
+				new Login();
+				//new Gui();
 
 			}
 		});
