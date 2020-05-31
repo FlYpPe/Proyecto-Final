@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.sql.rowset.Joinable;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 import ConexionBaseDeDatos.*;
@@ -41,11 +42,52 @@ public class Controlador {
 
 	}
 	
+	
+	
+	
+	public boolean revisar(String tabla, String pasw,String usuario) {
+		
+		consulta c1 = new consulta(tabla);
+		
+		Thread t1 = new Thread(c1);
+		
+		t1.start();
+		try {
+			t1.join();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		ResultSet rs = c1.rs;
+				
+		try {
+			while (rs.next()) {
+				if (rs.getString(1).equals(pasw) && rs.getString(2).equals(usuario)) {
+					return true;
+				}
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return false;
+		
+	}
+	
+	public void iniciarGUI() {
+		
+		
+		
+	}
+	
 	public void actualizar(String tabla, String sq) {
 		
 		String sql = "Update " + tabla + " Set " + sq; 
 		System.out.println(sql);
 		new ConexionBD().ejInstr(sql);
+		
+		
 		
 		//Update ayuntamiento set Departamento = 'actu',Estado = 'actu', CantPersonal = 77, Encargado = 'actu' where encargado = 'asd';
 	}
@@ -87,6 +129,8 @@ public class Controlador {
 	}
 
 }
+
+
 
 class consulta implements Runnable {
 
