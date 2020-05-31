@@ -30,7 +30,8 @@ class Gui extends JFrame {
 	JMenu menuInicio, menuTools;
 	JMenuItem menuAltas, menuCambio, menuBajas, menuConsultas, menuReestablecer;
 	JPanel panActual;
-	String opReg;
+	String opReg, opBaja;
+	JScrollPane paneltabla;
 
 	public Gui() {
 		getContentPane().setLayout(null);
@@ -74,6 +75,7 @@ class Gui extends JFrame {
 		JPanel panelbajas = new JPanel();
 		panelbajas.setLayout(null);
 		panelbajas.setBounds(700, 0, 700, 500);
+		panelbajas.setBackground(Color.WHITE);
 		add(panelbajas);
 		JPanel panelconsultas = new JPanel();
 		panelconsultas.setLayout(null);
@@ -121,8 +123,7 @@ class Gui extends JFrame {
 				bPcambio.setBounds(0, 60, 100, 60);
 				bScambio.setBounds(0, 120, 100, 60);
 				bChecar.setBounds(200, 100, 100, 35);
-				
-				
+
 			}
 		});
 
@@ -134,7 +135,7 @@ class Gui extends JFrame {
 				panelaltas.setBounds(700, 0, 600, 500);
 				panelbajas.setBounds(0, 0, 700, 500);
 				panelconsultas.setBounds(700, 0, 700, 500);
-				panActual = panelaltas;
+				panActual = panelbajas;
 
 				bAcambio.setBounds(700, 0, 100, 60);
 				bPcambio.setBounds(700, 60, 100, 60);
@@ -150,13 +151,13 @@ class Gui extends JFrame {
 				panelaltas.setBounds(700, 0, 600, 500);
 				panelbajas.setBounds(700, 0, 700, 500);
 				panelconsultas.setBounds(0, 0, 700, 500);
-				panActual = panelaltas;
+				panActual = panelconsultas;
 
 				bAcambio.setBounds(700, 0, 100, 60);
 				bPcambio.setBounds(700, 60, 100, 60);
 				bScambio.setBounds(700, 120, 100, 60);
 				bChecar.setBounds(700, 200, 100, 35);
-				
+
 			}
 		});
 
@@ -463,24 +464,18 @@ class Gui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//System.out.println(new Controlador().revisar("dsf"));
-				new Controlador().actualizar(new ModeloAyunta("qwe", "qwe", 10, "actu"));
+				// System.out.println(new Controlador().revisar("dsf"));
+				// new Controlador().actualizar(new ModeloAyunta("qwe", "qwe", 10, "actu"));
 				if (opReg.equals("Ay")) {
 
-					
-					
-					
-					
-					
-					
+					// sql = "Departamento = '" + a.getDepartamento() + "', Estado = '" +
+					// a.getEstado() + "' , CantPersonal = " + a.getCantidadPersonal() + ",
+					// Encargado = '" + a.getDepartamento()+ "' where encargado = '" +
+					// a.getEncargado() + "'";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 				} else if (opReg.equals("Pe")) {
-					
-					
-					
-					
-					
-					
+
 					/*
 					 * panelaltas.add(t1b); panelaltas.add(t2b); panelaltas.add(comboB2);
 					 * panelaltas.add(combo3);
@@ -488,116 +483,191 @@ class Gui extends JFrame {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 				} else if (opReg.equals("Si")) {
 
-					
-					
-
 				}
-				
+
 			}
 		});
-		
 
 		panelaltas.add(bChecar);
 
-		/*
-		 * 
-		 * 
-		 * bAcambio.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent arg0) { opReg = "Ay";
-		 * panelaltas.remove(t1); panelaltas.remove(t2); panelaltas.remove(combo2);
-		 * panelaltas.remove(t4);
-		 * 
-		 * panelaltas.remove(t1b); panelaltas.remove(t2b); panelaltas.remove(comboB2);
-		 * panelaltas.remove(combo3);
-		 * 
-		 * panelaltas.remove(t1c); panelaltas.remove(combo0);
-		 * panelaltas.remove(comboC2); panelaltas.remove(t4b);
-		 * 
-		 * panelaltas.add(t1); panelaltas.add(t2); panelaltas.add(combo2);
-		 * panelaltas.add(t4);
-		 * 
-		 * lb1.setText("Departamento"); lb2.setText("Estado de funcionamiento");
-		 * lb3.setText("Cantidad de personal en la area");
-		 * lb4.setText("Nombre del encargado");
-		 * 
-		 * panelaltas.setVisible(false); panelaltas.setVisible(true);
-		 * 
-		 * 
-		 * } });
-		 * 
-		 * add(bAcambio);
-		 * 
-		 * bPcambio = new JButton("Personal"); bPcambio.setBounds(0, 60, 100, 60);
-		 * bPcambio.setBackground(Color.white);
-		 * 
-		 * bPcambio.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent arg0) { opReg = "Pe";
-		 * panelaltas.remove(t1); panelaltas.remove(t2); panelaltas.remove(combo2);
-		 * panelaltas.remove(t4);
-		 * 
-		 * panelaltas.remove(t1b); panelaltas.remove(t2b); panelaltas.remove(comboB2);
-		 * panelaltas.remove(combo3);
-		 * 
-		 * panelaltas.remove(t1c); panelaltas.remove(combo0);
-		 * panelaltas.remove(comboC2); panelaltas.remove(t4b);
-		 * 
-		 * panelaltas.add(t1b); panelaltas.add(t2b); panelaltas.add(comboB2);
-		 * panelaltas.add(combo3);
-		 * 
-		 * lb1.setText("Nombre"); lb2.setText("Area"); lb3.setText("Sueldo");
-		 * lb4.setText("Horas Diarias");
-		 * 
-		 * panelaltas.setVisible(false); panelaltas.setVisible(true);
-		 * 
-		 * 
-		 * } }); add(bPcambio);
-		 * 
-		 * bScambio = new JButton("Sistema"); bScambio.setBounds(0, 120, 100, 60);
-		 * bScambio.setBackground(Color.white);
-		 * 
-		 * bScambio.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent arg0) { opReg = "Si";
-		 * panelaltas.remove(t1c); panelaltas.remove(combo0);
-		 * panelaltas.remove(comboC2); panelaltas.remove(t4b);
-		 * 
-		 * panelaltas.remove(t1); panelaltas.remove(t2); panelaltas.remove(combo2);
-		 * panelaltas.remove(t4);
-		 * 
-		 * panelaltas.remove(t1b); panelaltas.remove(t2b); panelaltas.remove(comboB2);
-		 * panelaltas.remove(combo3);
-		 * 
-		 * panelaltas.add(t1c); panelaltas.add(combo0); panelaltas.add(comboC2);
-		 * panelaltas.add(t4b);
-		 * 
-		 * lb1.setText("Estrategia"); lb2.setText("Vehiculos");
-		 * lb3.setText("Cantidad Empleados"); lb4.setText("Estado");
-		 * 
-		 * panelaltas.setVisible(false); panelaltas.setVisible(true);
-		 * 
-		 * } });
-		 * 
-		 */
+		JLabel lbB1 = new JLabel("Ingrese la seccion a usar");
+		lbB1.setBounds(200, 20, 150, 20);
+		panelbajas.add(lbB1);
+		String secc[] = { "Selecciona", "Ayuntamiento", "Personal", "Sistema Recoleccion" };
+		JComboBox<String> cm = new JComboBox<String>(secc);
+		cm.setBounds(200, 55, 140, 25);
+		panelbajas.add(cm);
 
-		/*
-		 * JButton bot = new JButton("aqui"); bot.setBounds(300,220, 30,15); add(bot);
-		 * 
-		 * bot.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent arg0) {
-		 * 
-		 * tabla = new Controlador().retornarTabla("Ayuntamiento");
-		 * 
-		 * 
-		 * JScrollPane paneltabla = new JScrollPane(tabla);
-		 * paneltabla.setBounds(10,10,400, 200); add(paneltabla);
-		 * 
-		 * 
-		 * 
-		 * } });
-		 */
+		JLabel lbB2 = new JLabel("Ingrese la seccion a usar");
+		lbB2.setBounds(200, 90, 150, 20);
+		panelbajas.add(lbB2);
+		opBaja = "Ayuntamiento";
+		cm.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				opBaja = (String) cm.getSelectedItem();
+
+				if (opBaja.equals("Ayuntamiento")) {
+					lbB2.setText("Ingrese departamento");
+				} else if (opBaja.equals("Personal")) {
+					lbB2.setText("Ingrese Nombre");
+				} else if (opBaja.equals("Sistema Recoleccion")) {
+					lbB2.setText("Ingrese Estrategia");
+				}
+
+			}
+		});
+
+		JTextField tborr = new JTextField();
+		tborr.setBounds(200, 120, 140, 25);
+		panelbajas.add(tborr);
+
+		JButton borrar = new JButton("Eliminar");
+		borrar.setBounds(200, 155, 80, 30);
+		panelbajas.add(borrar);
+
+		borrar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if (!tborr.getText().equals("")) {
+
+					String sql;
+					if (opBaja.equals("Ayuntamiento")) {
+						sql = "Departamento = '" + tborr.getText() + "'";
+						new Controlador().eliminarRegistro("Ayuntamiento", sql);
+						if (new Controlador().revisar("Ayuntamiento", sql)) {
+
+						} else {
+							JOptionPane.showMessageDialog(getParent(), "No coicide la entrada con ningun registro");
+						}
+
+					} else if (opBaja.equals("Personal")) {
+
+						sql = "Nombre = '" + tborr.getText() + "'";
+						if (new Controlador().revisar("Personal", sql)) {
+							new Controlador().eliminarRegistro("Personal", sql);
+						} else {
+							JOptionPane.showMessageDialog(getParent(), "No coicide la entrada con ningun registro");
+						}
+
+					} else if (opBaja.equals("Sistema Recoleccion")) {
+
+						sql = "Estrategia = '" + tborr.getText() + "'";
+						if (new Controlador().revisar("Sistema Recoleccion", sql)) {
+							new Controlador().eliminarRegistro("Sistema Recoleccion", sql);
+						} else {
+							JOptionPane.showMessageDialog(getParent(), "No coicide la entrada con ningun registro");
+						}
+
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+				}
+				// String sql =
+				// num_control = '" + numControl + "'"
+
+			}
+		});
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		JLabel lbC1 = new JLabel("Ingrese la seccion a usar");
+		lbC1.setBounds(200, 20, 150, 20);
+		panelconsultas.add(lbC1);
+		String sec[] = { "Selecciona", "Ayuntamiento", "Personal", "Sistema Recoleccion" };
+		JComboBox<String> co = new JComboBox<String>(sec);
+		co.setBounds(200, 55, 140, 25);
+		JLabel lbC2 = new JLabel("Ingrese la seccion a usar");
+		lbC2.setBounds(200, 90, 150, 20);
+		panelconsultas.add(lbC2);
+		panelconsultas.add(co);
+		co.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				opBaja = (String) co.getSelectedItem();
+
+				if (opBaja.equals("Ayuntamiento")) {
+					lbC2.setText("Ingrese departamento");
+				} else if (opBaja.equals("Personal")) {
+					lbC2.setText("Ingrese Nombre");
+				} else if (opBaja.equals("Sistema Recoleccion")) {
+					lbC2.setText("Ingrese Estrategia");
+				}
+
+			}
+		});
+
+		JTextField tco = new JTextField();
+		tco.setBounds(200, 120, 140, 25);
+		panelconsultas.add(tco);
+
+		JButton consultar = new JButton("Eliminar");
+		consultar.setBounds(200, 155, 80, 30);
+		panelconsultas.add(consultar);
+
+		consultar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if (!tco.getText().equals("")) {
+					try {
+						paneltabla.removeAll();
+					} catch (Exception e2) {
+						System.out.println("Asda");
+						// TODO: handle exception
+					}
+					String sql;
+					if (opBaja.equals("Ayuntamiento")) {
+
+						tabla = new Controlador()
+								.retornarTabla("Ayuntamiento Where Departamento = '" + tco.getText() + "'");
+
+						paneltabla = new JScrollPane(tabla);
+
+						paneltabla.setBounds(200, 200, 400, 200);
+						add(paneltabla);
+
+					} else if (opBaja.equals("Personal")) {
+
+					} else if (opBaja.equals("Sistema Recoleccion")) {
+
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+				}
+				// String sql =
+				// num_control = '" + numControl + "'"
+
+			}
+		});
+
+		JButton bot = new JButton("aqui");
+		bot.setBounds(300, 220, 30, 15);
+		add(bot);
+
+		bot.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				tabla = new Controlador().retornarTabla("Ayuntamiento");
+
+				JScrollPane paneltabla = new JScrollPane(tabla);
+				paneltabla.setBounds(10, 10, 400, 200);
+				add(paneltabla);
+
+			}
+		});
 
 	}
 

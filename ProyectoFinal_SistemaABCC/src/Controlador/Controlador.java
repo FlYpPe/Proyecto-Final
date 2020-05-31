@@ -5,6 +5,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.sql.rowset.Joinable;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
@@ -21,10 +22,9 @@ public class Controlador {
 
 	}
 
-	public boolean revisar(String Tabla, String dato) {
+	public boolean revisar(String Tabla, String sq) {
 
-		String sql = "SELECT * FROM Ayuntamiento WHERE Encargado = 'asd'";
-
+		String sql = "SELECT * FROM " + Tabla +" WHERE " + sq;
 		ResultSet res = new ConexionBD().ejecutarConsulta(sql);
 
 		
@@ -41,113 +41,48 @@ public class Controlador {
 
 	}
 	
-	public void actualizar(ModeloAyunta a) {
-		String sql = "Update Ayuntamiento Set Departamento = '" + a.getDepartamento() + "', Estado = '" + a.getEstado() + "' , CantPersonal = " + a.getCantidadPersonal() + ", Encargado = '" + a.getDepartamento()+ "' where encargado = '" + a.getEncargado() + "'";
+	public void actualizar(String tabla, String sq) {
+		
+		String sql = "Update " + tabla + " Set " + sq; 
 		System.out.println(sql);
 		new ConexionBD().ejInstr(sql);
 		
 		//Update ayuntamiento set Departamento = 'actu',Estado = 'actu', CantPersonal = 77, Encargado = 'actu' where encargado = 'asd';
 	}
-/*
-	public boolean modificarAlumno(Alumno a) {
-		  
+	
+	public boolean eliminarRegistro(String tabla, String sq) {
 		
+		String sql = "Delete From " + tabla + " Where " + sq;
+		boolean res = new ConexionBD().ejInstr(sql);
+		return res;
 		
-		  String sql = "Update Alumnos Set Nombre_Alumno= '" + a.getNombre() + "'" +
-		  ", Primer_Ap_Alumno = '" + a.getPrimerAp() + "'" + ", Segundo_Ap_Alumno = '"
-		  + a.getSegundoAp() + "'" + ", Edad_Alumno = " + a.getEdad() + "" +
-		  ", Semestre = " + a.getSemestre() + "" + ", Carrera = '" + a.getCarrera() +
-		  "' WHERE Num_Control='" + a.getNumControl() + "'";
-		  
-		  // Nombre_Alumno | Primer_Ap_Alumno | Segundo_Ap_Alumno | Edad_Alumno |
-		  Semestre | Carrera
-		  
-		  boolean res = new ConexionBD().ejInstr(sql); return res;
-		  
-		  }
+	}
 	
 	
-	
-	/*
-	 * 
-	 * public Alumno buscarAlumno(String numControl) {
-	 * 
-	 * String sql = "SELECT * FROM Alumnos WHERE Num_Control = '" + numControl +
-	 * "'";
-	 * 
-	 * ResultSet res = new ConexionBD().ejecutarConsulta(sql);
-	 * 
-	 * try { res.last();
-	 * 
-	 * return new Alumno(res.getString("Num_Control"), res.getString(2),
-	 * res.getString(3), res.getString(4), res.getByte(5), res.getByte(5),
-	 * res.getString(6));
-	 * 
-	 * } catch (SQLException e) { // TODO Auto-generated catch block
-	 * 
-	 * return null; }
-	 * 
-	 * }
-	 * 
-	 * 
-	 * /* public boolean agregarAlumno(Alumno a) { String sql =
-	 * "insert into Alumnos Values('" + a.getNumControl() + "','" + a.getPrimerAp()
-	 * + "','" + a.getNombre() + "','" + a.getSegundoAp() + "'," + a.getEdad() + ","
-	 * + a.getSemestre() + ",'" + a.getCarrera() + "')";
-	 * 
-	 * return new ConexionBD().ejInstr(sql);
-	 * 
-	 * }
-	 * 
-	 * public boolean eliminarAlumno(String numControl) {
-	 * 
-	 * String sql = "Delete From alumnos where num_control = '" + numControl + "'";
-	 * boolean res = new ConexionBD().ejInstr(sql);
-	 * 
-	 * return false;
-	 * 
-	 * }cmd
-	 *
-	 * 
-	 * public boolean modificarAlumno(Alumno a) {
-	 * 
-	 * String sql = "Update Alumnos Set Nombre_Alumno= '" + a.getNombre() + "'" +
-	 * ", Primer_Ap_Alumno = '" + a.getPrimerAp() + "'" + ", Segundo_Ap_Alumno = '"
-	 * + a.getSegundoAp() + "'" + ", Edad_Alumno = " + a.getEdad() + "" +
-	 * ", Semestre = " + a.getSemestre() + "" + ", Carrera = '" + a.getCarrera() +
-	 * "' WHERE Num_Control='" + a.getNumControl() + "'";
-	 * 
-	 * // Nombre_Alumno | Primer_Ap_Alumno | Segundo_Ap_Alumno | Edad_Alumno |
-	 * Semestre | Carrera
-	 * 
-	 * boolean res = new ConexionBD().ejInstr(sql); return res;
-	 * 
-	 * }
-	 * 
-	 * public Alumno buscarAlumno(String numControl) {
-	 * 
-	 * String sql = "SELECT * FROM Alumnos WHERE Num_Control = '" + numControl +
-	 * "'";
-	 * 
-	 * ResultSet res = new ConexionBD().ejecutarConsulta(sql);
-	 * 
-	 * try { res.last();
-	 * 
-	 * return new Alumno(res.getString("Num_Control"), res.getString(2),
-	 * res.getString(3), res.getString(4), res.getByte(5), res.getByte(5),
-	 * res.getString(6));
-	 * 
-	 * } catch (SQLException e) { // TODO Auto-generated catch block
-	 * 
-	 * return null; }
-	 * 
-	 * }
-	 */
-	public JTable retornarTabla(String nTabla) {
+	public JTable retornarTabla(String inst) {
+		consulta c1 = new consulta(inst);
+		HiloTabla ht1 = new HiloTabla(c1);
+		
+		Thread t1 = new Thread(c1);
+		Thread t2 = new Thread(ht1);
+		
+		t1.start();
+		try {
+			t1.join();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		t2.start();
+		try {
+			t2.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//CrearTabla modelo = new CrearTabla(new ConexionBD().ejecutarConsulta("SELECT * FROM " + inst));
 
-		CrearTabla modelo = new CrearTabla(new ConexionBD().ejecutarConsulta("SELECT * FROM " + nTabla));
-
-		return new JTable(modelo);
+		return ht1.retornarTabla();
 
 	}
 
@@ -155,11 +90,50 @@ public class Controlador {
 
 class consulta implements Runnable {
 
+	boolean valido;
+	ResultSet rs;
+	String sql;
+	
+	public consulta(String ntabla) {
+
+		this.sql = ntabla;
+		
+	}
+	
+	@Override
+	public void run() {
+		rs = new ConexionBD().ejecutarConsulta("SELECT * FROM " + sql);
+	}
+
+}
+
+class HiloTabla implements Runnable{
+	
+	JTable table;
+	consulta c;
+	ResultSet rs;
+	
+	public HiloTabla(consulta c) {
+		this.c = c;
+		
+	}
+	
 	@Override
 	public void run() {
 
+		rs = c.rs;
+		
+		CrearTabla tabla = new CrearTabla(rs);
+		table = new JTable(tabla);
 	}
-
+	
+	public JTable retornarTabla() {
+		
+		
+		return table;
+		
+	}
+	
 }
 
 class CrearTabla extends AbstractTableModel {
@@ -171,6 +145,7 @@ class CrearTabla extends AbstractTableModel {
 
 		this.rsRegistros = unResultSet;
 		try {
+			
 			this.metaData = this.rsRegistros.getMetaData();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
