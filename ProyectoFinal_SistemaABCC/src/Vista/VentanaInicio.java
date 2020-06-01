@@ -12,6 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -32,8 +33,8 @@ import Controlador.*;
 import Modelo.ModeloAyunta;
 
 class Gui extends JFrame {
-		
-	JButton bAcambio, bPcambio, bScambio, bChecar;
+
+	JButton bAcambio, bPcambio, bScambio, bChecar, bCambiar, bAltas;
 	JTable tabla;
 	JMenuBar menuBar;
 	JMenu menuInicio, menuTools;
@@ -53,7 +54,7 @@ class Gui extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		getContentPane().setBackground(Color.BLACK);
-		
+
 		menuBar = new JMenuBar();
 		menuInicio = new JMenu("Ver");
 		menuTools = new JMenu("Tools");
@@ -77,9 +78,7 @@ class Gui extends JFrame {
 		panelaltas.setLayout(null);
 		panelaltas.setBounds(100, 0, 600, 500);
 		add(panelaltas);
-		
-		
-		
+
 		panActual = panelaltas;
 		JPanel panelcambios = new JPanel();
 		panelcambios.setLayout(null);
@@ -96,8 +95,7 @@ class Gui extends JFrame {
 		panelconsultas.setBounds(700, 0, 700, 500);
 		panelconsultas.setBackground(Color.white);
 		add(panelconsultas);
-		
-		
+
 		menuReestablecer.addActionListener(new ActionListener() {
 
 			@Override
@@ -123,6 +121,8 @@ class Gui extends JFrame {
 				bScambio.setBounds(0, 120, 100, 60);
 				bChecar.setBounds(700, 200, 100, 35);
 
+				bAltas.setBounds(200, 200, 100, 35);
+				bCambiar.setBounds(700, 200, 100, 35);
 			}
 		});
 
@@ -139,6 +139,9 @@ class Gui extends JFrame {
 				bPcambio.setBounds(0, 60, 100, 60);
 				bScambio.setBounds(0, 120, 100, 60);
 				bChecar.setBounds(200, 100, 100, 35);
+
+				bAltas.setBounds(700, 200, 100, 35);
+				bCambiar.setBounds(200, 200, 100, 35);
 
 			}
 		});
@@ -253,7 +256,7 @@ class Gui extends JFrame {
 
 		opReg = "Ay";
 
-		JButton bAltas = new JButton("Dar de alta");
+		bAltas = new JButton("Dar de alta");
 		bAltas.setBounds(200, 200, 100, 35);
 		bAltas.addActionListener(new ActionListener() {
 
@@ -291,7 +294,7 @@ class Gui extends JFrame {
 					} else {
 
 						String sql = "";
-						sql = "Values( \'" + t2b.getText() + "\' , \'" + t2b.getText() + "\' ,"
+						sql = "Values( \'" + t1b.getText() + "\' , \'" + t2b.getText() + "\' ,"
 								+ Integer.parseInt((String) comboB2.getSelectedItem()) + ", "
 								+ Integer.parseInt((String) combo3.getSelectedItem()) + " ); ";
 						new Controlador().agregarRegistro("Personal", sql);
@@ -309,6 +312,10 @@ class Gui extends JFrame {
 					 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 				} else if (opReg.equals("Si")) {
+
+					// 1 t1 t2 combo2 t4
+					// 2 t1b t2b comboB2 combo3
+					// 3 t1c combo0 comboC2 t4b
 
 					if (t1c.getText().equals("") || t4b.getText().equals("")) {
 						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
@@ -342,14 +349,15 @@ class Gui extends JFrame {
 		});
 
 		bAltas.setBackground(Color.WHITE);
-		
+
 		panelaltas.add(bAltas);
 
 		bAcambio = new JButton("Ayuntamiento");
 		bAcambio.setBounds(0, 0, 100, 60);
 		bAcambio.setBackground(Color.white);
 		imagen = new ImageIcon("src/Imagenes/Ayuntamiento.png");
-		icono = new ImageIcon(imagen.getImage().getScaledInstance(bAcambio.getWidth(), bAcambio.getHeight(), Image.SCALE_DEFAULT));
+		icono = new ImageIcon(
+				imagen.getImage().getScaledInstance(bAcambio.getWidth(), bAcambio.getHeight(), Image.SCALE_DEFAULT));
 		bAcambio.setIcon(icono);
 		add(bAcambio);
 
@@ -484,9 +492,23 @@ class Gui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+
+				// 1 t1 t2 combo2 t4
+				// 2 t1b t2b comboB2 combo3
+				// 3 t1c combo0 comboC2 t4b
+
 				// System.out.println(new Controlador().revisar("dsf"));
 				// new Controlador().actualizar(new ModeloAyunta("qwe", "qwe", 10, "actu"));
+				System.out.println(opReg);
+
 				if (opReg.equals("Ay")) {
+
+					if (!t1.getText().equals("")) {
+
+						String sql = "Departamento = '" + t1.getText() + "'";
+						System.out.println(new Controlador().revisar("Ayuntamiento", sql));
+
+					}
 
 					// sql = "Departamento = '" + a.getDepartamento() + "', Estado = '" +
 					// a.getEstado() + "' , CantPersonal = " + a.getCantidadPersonal() + ",
@@ -496,6 +518,11 @@ class Gui extends JFrame {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 				} else if (opReg.equals("Pe")) {
 
+					if (!t1b.getText().equals("")) {
+						String sql = "Nombre = '" + t1b.getText() + "'";
+						System.out.println(new Controlador().revisar("Personal", sql));
+					}
+
 					/*
 					 * panelaltas.add(t1b); panelaltas.add(t2b); panelaltas.add(comboB2);
 					 * panelaltas.add(combo3);
@@ -503,12 +530,122 @@ class Gui extends JFrame {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 				} else if (opReg.equals("Si")) {
 
+					if (!t1c.getText().equals("")) {
+
+						String sql = "Estrategia = '" + t1c.getText() + "'";
+						System.out.println(new Controlador().revisar("SistemaRecoleccion", sql));
+
+					}
+
 				}
 
 			}
 		});
-
+		bChecar.setBackground(Color.WHITE);
 		panelaltas.add(bChecar);
+
+		bCambiar = new JButton("Modificar");
+		bCambiar.setBounds(700, 200, 100, 35);
+		bCambiar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				
+
+				if (opReg.equals("Ay")) {
+
+					if (t1.getText().equals("") || t2.getText().equals("") || t4.getText().equals("")) {
+						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+					} else {
+
+						String sql = "";
+						try {
+							sql = "Departamento = '" + t1.getText() + "', Estado = '" + t2.getText()
+									+ "', CantPersonal = " + Integer.parseInt((String) combo2.getSelectedItem())
+									+ " , Encargado = '" + t4.getText() + "'" + "WHERE Departamento = '" + t1.getText()
+									+ "'";
+
+							new Controlador().actualizar("Ayuntamiento", sql);
+
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+						}
+					}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+				} else if (opReg.equals("Pe")) {
+
+					if (t1b.getText().equals("") || t2b.getText().equals("")) {
+
+						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+					} else {
+
+						String sql = "";
+
+						sql = "Nombre = '" + t1b.getText() + "', Area = '" + t2b.getText() + "', Sueldo = "
+								+ Integer.parseInt((String) comboB2.getSelectedItem()) + " , horasDiarias = "
+								+ Integer.parseInt((String) combo3.getSelectedItem()) + " WHERE Nombre = '" + t1b.getText() + "'";
+						
+						new Controlador().actualizar("Personal", sql);
+						
+						try {
+
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+						}
+					}
+
+					// 1 t1 t2 combo2 t4
+					// 2 t1b t2b comboB2 combo3
+					// 3 t1c combo0 comboC2 t4b
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+				} else if (opReg.equals("Si")) {
+
+					// 1 t1 t2 combo2 t4
+					// 2 t1b t2b comboB2 combo3
+					// 3 t1c combo0 comboC2 t4b
+
+					if (t1c.getText().equals("") || t4b.getText().equals("")) {
+						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+					} else {
+
+						String sql = "";
+						
+						try {
+						
+						sql = "Estrategia = '" + t1c.getText() + "', Vehiculos = " + Integer.parseInt((String) combo0.getSelectedItem()) + ", CantidadEmpleados = "
+								+ Integer.parseInt((String) comboC2.getSelectedItem()) + " , Estado = '"
+								+ t4b.getText() + "' WHERE Estrategia = '" + t1c.getText() + "'";
+						
+						new Controlador().actualizar("SistemaRecoleccion", sql);
+						
+
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+						}
+					}
+
+					/*
+					 * panelaltas.add(t1c); panelaltas.add(combo0); panelaltas.add(comboC2);
+					 * panelaltas.add(t4b);
+					 */
+
+				}
+
+			}
+		});
+		bCambiar.setBackground(Color.WHITE);
+		// bCambiar.setEnabled(false);
+		panelaltas.add(bCambiar);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		JLabel lbB1 = new JLabel("Ingrese la seccion a usar");
 		lbB1.setBounds(200, 20, 150, 20);
@@ -546,14 +683,13 @@ class Gui extends JFrame {
 
 		JButton borrar = new JButton();
 		borrar.setBounds(200, 155, 80, 30);
-		
 
 		borrar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (!tborr.getText().equals("")) {
+				if (!tborr.getText().equals("") || !cm.getSelectedItem().equals("Selecciona")) {
 
 					String sql;
 					if (opBaja.equals("Ayuntamiento")) {
@@ -593,14 +729,9 @@ class Gui extends JFrame {
 
 			}
 		});
-		
-		
-		
-		
-		
+
 		panelbajas.add(borrar);
-		
-		
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -633,91 +764,100 @@ class Gui extends JFrame {
 		});
 
 		JTextField tco = new JTextField();
-		tco.setBounds(200, 120, 140, 25);
+		tco.setBounds(110, 120, 140, 25);
 		panelconsultas.add(tco);
-		
-		JButton consultar = new JButton("Eliminar");
+
+		JButton consultar = new JButton("Generar");
 		consultar.setBounds(200, 155, 80, 30);
 		panelconsultas.add(consultar);
+
+		JLabel lbC3 = new JLabel(" o ");
+		lbC3.setBounds(260, 120, 30, 20);
+		panelconsultas.add(lbC3);
+
+		JCheckBox cb = new JCheckBox("Mostrar tabla completa");
+		cb.setBounds(285, 120, 180, 20);
+		cb.setBackground(Color.white);
+		panelconsultas.add(cb);
 
 		consultar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (!tco.getText().equals("")) {
-					
-					
+				if ((tco.getText().equals("") && !cb.isSelected()) || co.getSelectedItem().equals("Selecciona")) {
+
+					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+
+				} else {
+
 					try {
 						paneltabla.removeAll();
 					} catch (Exception e2) {
 						// TODO: handle exception
 					}
-					
+
 					String sql;
 					if (opBaja.equals("Ayuntamiento")) {
 
-						tabla = new Controlador()
-								.retornarTabla("Ayuntamiento Where Departamento = '" + tco.getText() + "'");
+						if (cb.isSelected()) {
+							tabla = new Controlador().retornarTabla("Ayuntamiento");
+						} else {
 
+							tabla = new Controlador()
+									.retornarTabla("Ayuntamiento Where Departamento = '" + tco.getText() + "'");
+
+						}
 						paneltabla = new JScrollPane(tabla);
 
-						paneltabla.setBounds(200, 200, 400, 200);
+						paneltabla.setBounds(150, 200, 400, 200);
 						add(paneltabla);
 
 					} else if (opBaja.equals("Personal")) {
-						
-						
-						tabla = new Controlador()
-								.retornarTabla("Personal Where Nombre = '" + tco.getText() + "'");
 
+						if (cb.isSelected()) {
+							tabla = new Controlador().retornarTabla("Personal");
+						} else {
+							tabla = new Controlador().retornarTabla("Personal Where Nombre = '" + tco.getText() + "'");
+						}
 						paneltabla = new JScrollPane(tabla);
-
-						paneltabla.setBounds(200, 200, 400, 200);
+						paneltabla.setBounds(150, 200, 400, 200);
 						add(paneltabla);
-						
-						
+
 					} else if (opBaja.equals("Sistema Recoleccion")) {
-						
-						
-						tabla = new Controlador()
-								.retornarTabla("SistemaRecoleccion Where Estrategia = '" + tco.getText() + "'");
-
+						if (cb.isSelected()) {
+							tabla = new Controlador().retornarTabla("SistemaRecoleccion");
+						} else {
+							tabla = new Controlador()
+									.retornarTabla("SistemaRecoleccion Where Estrategia = '" + tco.getText() + "'");
+						}
 						paneltabla = new JScrollPane(tabla);
 
-						paneltabla.setBounds(200, 200, 400, 200);
+						paneltabla.setBounds(150, 200, 400, 200);
 						add(paneltabla);
-						
-						
+
 					}
 
-				} else {
-					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
 				}
 				// String sql =
 				// num_control = '" + numControl + "'"
 
 			}
 		});
-/*
-		JButton bot = new JButton("aqui");
-		bot.setBounds(300, 220, 30, 15);
-		add(bot);
-
-		bot.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-				tabla = new Controlador().retornarTabla("Ayuntamiento");
-
-				JScrollPane paneltabla = new JScrollPane(tabla);
-				paneltabla.setBounds(10, 10, 400, 200);
-				add(paneltabla);
-
-			}
-		});
-*/
+		/*
+		 * JButton bot = new JButton("aqui"); bot.setBounds(300, 220, 30, 15); add(bot);
+		 * 
+		 * bot.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent arg0) {
+		 * 
+		 * tabla = new Controlador().retornarTabla("Ayuntamiento");
+		 * 
+		 * JScrollPane paneltabla = new JScrollPane(tabla); paneltabla.setBounds(10, 10,
+		 * 400, 200); add(paneltabla);
+		 * 
+		 * } });
+		 */
 	}
 
 	public void restablecerComponentes(Component... component) {
@@ -735,76 +875,70 @@ class Gui extends JFrame {
 
 }
 
-class Login extends JFrame{
-	
+class Login extends JFrame {
+
 	public Login() {
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Login");
-		//setResizable(false);
+		// setResizable(false);
 		setSize(700, 500);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		getContentPane().setBackground(Color.white);
-		
-		JPanel panel =  new JPanel();
+
+		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		
+
 		panel.setBorder(BorderFactory.createTitledBorder("Loggin"));
-		panel.setBounds(75,75,500,300);
+		panel.setBounds(75, 75, 500, 300);
 		panel.setBackground(Color.white);
 		add(panel);
-		
+
 		JLabel lb1 = new JLabel("Usuario");
-		lb1.setBounds(170,30,100,20);
+		lb1.setBounds(170, 30, 100, 20);
 		panel.add(lb1);
-		
+
 		JTextField t1 = new JTextField();
-		t1.setBounds(170,60,150,25);
+		t1.setBounds(170, 60, 150, 25);
 		panel.add(t1);
-		
+
 		JLabel lb2 = new JLabel("Contraseña");
-		lb2.setBounds(170,95,100,20);
+		lb2.setBounds(170, 95, 100, 20);
 		panel.add(lb2);
-		
+
 		JTextField t2 = new JTextField();
-		t2.setBounds(170,115,150,25);
+		t2.setBounds(170, 115, 150, 25);
 		panel.add(t2);
-		
+
 		JButton b1 = new JButton("Ingresar");
-		b1.setBounds(190,155,100,25);
+		b1.setBounds(190, 155, 100, 25);
 		panel.add(b1);
-		
+
 		b1.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if ((t1.getText().equals("")|| t2.getText().equals(""))) {
+				if ((t1.getText().equals("") || t2.getText().equals(""))) {
 					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
-				
-				}else {
-					
+
+				} else {
+
 					if (new Controlador().revisar("paswords", t1.getText(), t2.getText())) {
 						new Gui();
 						setVisible(false);
-					}else {
+					} else {
 						JOptionPane.showMessageDialog(getParent(), "Contrasena y usuario incorrecto");
 					}
-					
+
 				}
-				
-				
-				
-				
+
 			}
 		});
-		
+
 	}
-	
+
 }
-
-
-
 
 public class VentanaInicio {
 
@@ -814,8 +948,8 @@ public class VentanaInicio {
 
 			@Override
 			public void run() {
-				new Login();
-				//new Gui();
+				// new Login();
+				new Gui();
 
 			}
 		});
