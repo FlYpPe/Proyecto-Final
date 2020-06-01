@@ -123,6 +123,7 @@ class Gui extends JFrame {
 
 				bAltas.setBounds(200, 200, 100, 35);
 				bCambiar.setBounds(700, 200, 100, 35);
+				bCambiar.setEnabled(false);
 			}
 		});
 
@@ -142,7 +143,7 @@ class Gui extends JFrame {
 
 				bAltas.setBounds(700, 200, 100, 35);
 				bCambiar.setBounds(200, 200, 100, 35);
-
+				bCambiar.setEnabled(false);
 			}
 		});
 
@@ -160,6 +161,7 @@ class Gui extends JFrame {
 				bPcambio.setBounds(700, 60, 100, 60);
 				bScambio.setBounds(700, 120, 100, 60);
 				bChecar.setBounds(700, 200, 100, 35);
+				bCambiar.setEnabled(false);
 			}
 		});
 
@@ -176,7 +178,7 @@ class Gui extends JFrame {
 				bPcambio.setBounds(700, 60, 100, 60);
 				bScambio.setBounds(700, 120, 100, 60);
 				bChecar.setBounds(700, 200, 100, 35);
-
+				bCambiar.setEnabled(false);
 			}
 		});
 
@@ -506,7 +508,7 @@ class Gui extends JFrame {
 					if (!t1.getText().equals("")) {
 
 						String sql = "Departamento = '" + t1.getText() + "'";
-						System.out.println(new Controlador().revisar("Ayuntamiento", sql));
+						bCambiar.setEnabled(new Controlador().revisar("Ayuntamiento", sql));
 
 					}
 
@@ -520,7 +522,7 @@ class Gui extends JFrame {
 
 					if (!t1b.getText().equals("")) {
 						String sql = "Nombre = '" + t1b.getText() + "'";
-						System.out.println(new Controlador().revisar("Personal", sql));
+						bCambiar.setEnabled(new Controlador().revisar("Personal", sql));
 					}
 
 					/*
@@ -533,7 +535,7 @@ class Gui extends JFrame {
 					if (!t1c.getText().equals("")) {
 
 						String sql = "Estrategia = '" + t1c.getText() + "'";
-						System.out.println(new Controlador().revisar("SistemaRecoleccion", sql));
+						bCambiar.setEnabled(new Controlador().revisar("SistemaRecoleccion", sql));
 
 					}
 
@@ -641,7 +643,7 @@ class Gui extends JFrame {
 			}
 		});
 		bCambiar.setBackground(Color.WHITE);
-		// bCambiar.setEnabled(false);
+		bCambiar.setEnabled(false);
 		panelaltas.add(bCambiar);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -910,7 +912,7 @@ class Login extends JFrame {
 		JTextField t2 = new JTextField();
 		t2.setBounds(170, 115, 150, 25);
 		panel.add(t2);
-
+		
 		JButton b1 = new JButton("Ingresar");
 		b1.setBounds(190, 155, 100, 25);
 		panel.add(b1);
@@ -948,8 +950,9 @@ public class VentanaInicio {
 
 			@Override
 			public void run() {
-				// new Login();
-				new Gui();
+				
+				new Login();
+				//new Gui();
 
 			}
 		});
