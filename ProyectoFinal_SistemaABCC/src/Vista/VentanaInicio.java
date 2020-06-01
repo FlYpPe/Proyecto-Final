@@ -94,6 +94,7 @@ class Gui extends JFrame {
 		JPanel panelconsultas = new JPanel();
 		panelconsultas.setLayout(null);
 		panelconsultas.setBounds(700, 0, 700, 500);
+		panelconsultas.setBackground(Color.white);
 		add(panelconsultas);
 		
 		
@@ -778,6 +779,21 @@ class Login extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if ((t1.getText().equals("")|| t2.getText().equals(""))) {
+					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
+				
+				}else {
+					
+					if (new Controlador().revisar("paswords", t1.getText(), t2.getText())) {
+						new Gui();
+						setVisible(false);
+					}else {
+						JOptionPane.showMessageDialog(getParent(), "Contrasena y usuario incorrecto");
+					}
+					
+				}
+				
+				
 				
 				
 			}
