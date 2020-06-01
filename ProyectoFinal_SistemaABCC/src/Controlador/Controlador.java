@@ -27,11 +27,23 @@ public class Controlador {
 
 		String sql = "SELECT * FROM " + Tabla +" WHERE " + sq;
 		ResultSet res = new ConexionBD().ejecutarConsulta(sql);
-
+		System.out.println(sql);
 		
 		try {
 			res.last();
-			String a = res.getString("Encargado");
+			
+			String a = res.getString(1);/*
+			if (Tabla.equals("Ayuntamiento")) {
+				String a = res.getString("Encargado");
+			}
+			if (Tabla.equals("Personal")) {
+				
+			}
+			if (Tabla.equals("SistemaRecoleccion")) {
+				
+			}
+			*/
+			
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exceptionreturn false;
@@ -41,6 +53,8 @@ public class Controlador {
 		
 
 	}
+	
+	
 	
 	
 	
@@ -74,12 +88,7 @@ public class Controlador {
 		return false;
 		
 	}
-	
-	public void iniciarGUI() {
-		
-		
-		
-	}
+
 	
 	public void actualizar(String tabla, String sq) {
 		
