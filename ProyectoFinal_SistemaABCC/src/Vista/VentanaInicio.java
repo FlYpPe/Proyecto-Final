@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -345,7 +347,7 @@ class Gui extends JFrame {
 								+ Integer.parseInt((String) comboC2.getSelectedItem()) + ", \'" + t4b.getText()
 								+ "\'); ";
 						JOptionPane.showMessageDialog(getParent(), "Registrado correctamente");
-						System.out.println(sql);
+						
 
 						new Controlador().agregarRegistro("SistemaRecoleccion", sql);
 						}
@@ -520,7 +522,7 @@ class Gui extends JFrame {
 
 				// System.out.println(new Controlador().revisar("dsf"));
 				// new Controlador().actualizar(new ModeloAyunta("qwe", "qwe", 10, "actu"));
-				System.out.println(opReg);
+				
 
 				if (opReg.equals("Ay")) {
 
@@ -908,7 +910,10 @@ class Gui extends JFrame {
 
 }
 
-class Login extends JFrame {
+class Login extends JFrame implements KeyListener{
+	byte contador;
+	String pass = "";
+	JTextField t2;
 
 	public Login() {
 		getContentPane().setLayout(null);
@@ -940,8 +945,9 @@ class Login extends JFrame {
 		lb2.setBounds(170, 95, 100, 20);
 		panel.add(lb2);
 
-		JTextField t2 = new JTextField();
+		t2 = new JTextField();
 		t2.setBounds(170, 115, 150, 25);
+		t2.addKeyListener(this);
 		panel.add(t2);
 		
 		JButton b1 = new JButton("Ingresar");
@@ -956,8 +962,7 @@ class Login extends JFrame {
 					JOptionPane.showMessageDialog(getParent(), "Checar los datos");
 
 				} else {
-
-					if (new Controlador().revisar("paswords", t1.getText(), t2.getText())) {
+					if (new Controlador().revisar("paswords", t1.getText(), pass)) {
 						new Gui();
 						setVisible(false);
 					} else {
@@ -969,6 +974,48 @@ class Login extends JFrame {
 			}
 		});
 
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getKeyCode()==8) {
+			try {
+				t2.setText(t2.getText().substring(0,t2.getText().length()-1));
+				pass.substring(0, pass.length()-1);
+				
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}else {
+			if (rootPaneCheckingEnabled) {
+				
+			}
+			
+			pass = pass + e.getKeyChar();
+			try {
+				
+			t2.setText(t2.getText().substring(0,t2.getText().length()-1) + "*");
+			}catch (Exception f) {
+				// TODO: handle exception
+			}
+		}
+		
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+
+		
+		
 	}
 
 }

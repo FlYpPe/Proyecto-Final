@@ -28,10 +28,10 @@ public class ConexionBD {
 			
 			
 		} catch (ClassNotFoundException e) {
-			System.out.println("Error del Driver");
+			//System.out.println("Error del Driver");
 			e.printStackTrace();
 		} catch (SQLException e) {
-			System.out.println("Error en conexion a Mysql	");
+			//System.out.println("Error en conexion a Mysql	");
 			e.printStackTrace();
 		} 
 	}

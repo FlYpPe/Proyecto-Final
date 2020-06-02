@@ -18,7 +18,7 @@ public class Controlador {
 	public boolean agregarRegistro(String tabla, String values) {
 
 		String sql = "insert into " + tabla + " " + values;
-		System.out.println(sql);
+		
 		return new ConexionBD().ejInstr(sql);
 
 	}
@@ -27,7 +27,7 @@ public class Controlador {
 
 		String sql = "SELECT * FROM " + Tabla +" WHERE " + sq;
 		ResultSet res = new ConexionBD().ejecutarConsulta(sql);
-		System.out.println(sql);
+		
 		
 		try {
 			res.last();
@@ -93,7 +93,7 @@ public class Controlador {
 	public void actualizar(String tabla, String sq) {
 		
 		String sql = "Update " + tabla + " Set " + sq; 
-		System.out.println(sql);
+		
 		new ConexionBD().ejInstr(sql);
 		
 		
