@@ -79,6 +79,8 @@ class Gui extends JFrame {
 		panelaltas.setBounds(100, 0, 600, 500);
 		add(panelaltas);
 
+		
+		
 		panActual = panelaltas;
 		JPanel panelcambios = new JPanel();
 		panelcambios.setLayout(null);
@@ -110,7 +112,7 @@ class Gui extends JFrame {
 			@Override
 
 			public void actionPerformed(ActionEvent e) {
-
+				
 				panelaltas.setBounds(100, 0, 600, 500);
 				panelbajas.setBounds(700, 0, 700, 500);
 				panelconsultas.setBounds(700, 0, 700, 500);
@@ -119,9 +121,9 @@ class Gui extends JFrame {
 				bAcambio.setBounds(0, 0, 100, 60);
 				bPcambio.setBounds(0, 60, 100, 60);
 				bScambio.setBounds(0, 120, 100, 60);
-				bChecar.setBounds(700, 200, 100, 35);
+				bChecar.setBounds(700, 200, 90, 90);
 
-				bAltas.setBounds(200, 200, 100, 35);
+				bAltas.setBounds(200, 200, 100, 100);
 				bCambiar.setBounds(700, 200, 100, 35);
 				bCambiar.setEnabled(false);
 			}
@@ -139,7 +141,7 @@ class Gui extends JFrame {
 				bAcambio.setBounds(0, 0, 100, 60);
 				bPcambio.setBounds(0, 60, 100, 60);
 				bScambio.setBounds(0, 120, 100, 60);
-				bChecar.setBounds(200, 100, 100, 35);
+				bChecar.setBounds(200, 100, 90, 90);
 
 				bAltas.setBounds(700, 200, 100, 35);
 				bCambiar.setBounds(200, 200, 100, 35);
@@ -160,7 +162,7 @@ class Gui extends JFrame {
 				bAcambio.setBounds(700, 0, 100, 60);
 				bPcambio.setBounds(700, 60, 100, 60);
 				bScambio.setBounds(700, 120, 100, 60);
-				bChecar.setBounds(700, 200, 100, 35);
+				bChecar.setBounds(700, 200, 90, 90);
 				bCambiar.setEnabled(false);
 			}
 		});
@@ -177,12 +179,12 @@ class Gui extends JFrame {
 				bAcambio.setBounds(700, 0, 100, 60);
 				bPcambio.setBounds(700, 60, 100, 60);
 				bScambio.setBounds(700, 120, 100, 60);
-				bChecar.setBounds(700, 200, 100, 35);
+				bChecar.setBounds(700, 200, 90, 90);
 				bCambiar.setEnabled(false);
 			}
 		});
 
-		JLabel lb0 = new JLabel("Ingrese los datos para ingresar al ayuntamiento");
+		JLabel lb0 = new JLabel("Ingrese los datos");
 		lb0.setBounds(10, 10, 250, 20);
 		panelaltas.add(lb0);
 
@@ -259,7 +261,13 @@ class Gui extends JFrame {
 		opReg = "Ay";
 
 		bAltas = new JButton("Dar de alta");
-		bAltas.setBounds(200, 200, 100, 35);
+		bAltas.setBounds(200, 200, 100, 100);
+		imagen = new ImageIcon("src/Imagenes/list_add_user.png");
+		icono = new ImageIcon(
+				imagen.getImage().getScaledInstance(bAltas.getWidth(), bAltas.getHeight(), Image.SCALE_DEFAULT));
+		bAltas.setIcon(icono);
+		
+		
 		bAltas.addActionListener(new ActionListener() {
 
 			@Override
@@ -270,36 +278,43 @@ class Gui extends JFrame {
 						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
 
 					} else {
-
-						String sql = "";
+						String sql = "Departamento = '" + t1.getText() + "'";
+						if (new Controlador().revisar("Ayuntamiento", sql)) {
+							JOptionPane.showMessageDialog(getParent(), "No se registro, informacion duplicada");
+						}else {
+						
+						sql = "";
 						sql = "Values( \'" + t1.getText() + "\' , \'" + t2.getText() + "\' ,"
 								+ Integer.parseInt((String) combo2.getSelectedItem()) + ", \'" + t4.getText()
 								+ " \'); ";
 						System.out.println(sql);
 
 						new Controlador().agregarRegistro("Ayuntamiento", sql);
-
+						
+						}
 						try {
 
 						} catch (Exception e2) {
 							JOptionPane.showMessageDialog(getParent(), "Checar los datos");
 
 						}
-					}
+					}					
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 				} else if (opReg.equals("Pe")) {
 
 					if (t1b.getText().equals("") || t2b.getText().equals("")) {
-
 						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
-
 					} else {
-
-						String sql = "";
+						String sql = "Nombre = '" + t1b.getText() + "'";
+						if (new Controlador().revisar("Personal", sql)) {
+							JOptionPane.showMessageDialog(getParent(), "No se registro, informacion duplicada");
+						}else {
+						sql = "";
 						sql = "Values( \'" + t1b.getText() + "\' , \'" + t2b.getText() + "\' ,"
 								+ Integer.parseInt((String) comboB2.getSelectedItem()) + ", "
 								+ Integer.parseInt((String) combo3.getSelectedItem()) + " ); ";
 						new Controlador().agregarRegistro("Personal", sql);
+						}
 						try {
 
 						} catch (Exception e2) {
@@ -308,10 +323,6 @@ class Gui extends JFrame {
 						}
 					}
 
-					/*
-					 * panelaltas.add(t1b); panelaltas.add(t2b); panelaltas.add(comboB2);
-					 * panelaltas.add(combo3);
-					 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 				} else if (opReg.equals("Si")) {
 
@@ -323,8 +334,11 @@ class Gui extends JFrame {
 						JOptionPane.showMessageDialog(getParent(), "Checar los datos");
 
 					} else {
-
-						String sql = "";
+						String sql = "Estrategia = '" + t1c.getText() + "'";
+						if (new Controlador().revisar("SistemaRecoleccion", sql)) {
+							JOptionPane.showMessageDialog(getParent(), "No se registro, informacion duplicada");
+						}else {
+						sql = "";
 						sql = "Values( \'" + t1c.getText() + "\' , "
 								+ Integer.parseInt((String) combo0.getSelectedItem()) + " ,"
 								+ Integer.parseInt((String) comboC2.getSelectedItem()) + ", \'" + t4b.getText()
@@ -332,7 +346,7 @@ class Gui extends JFrame {
 						System.out.println(sql);
 
 						new Controlador().agregarRegistro("SistemaRecoleccion", sql);
-
+						}
 						try {
 
 						} catch (Exception e2) {
@@ -488,8 +502,11 @@ class Gui extends JFrame {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		bChecar = new JButton("Revisar");
-		bChecar.setBounds(200, 700, 80, 30);
-
+		bChecar.setBounds(200, 700, 90, 90);
+		imagen = new ImageIcon("src/Imagenes/Buscar.png");
+		icono = new ImageIcon(
+				imagen.getImage().getScaledInstance(70, 70, Image.SCALE_AREA_AVERAGING));
+		bChecar.setIcon(icono);
 		bChecar.addActionListener(new ActionListener() {
 
 			@Override
@@ -508,6 +525,7 @@ class Gui extends JFrame {
 					if (!t1.getText().equals("")) {
 
 						String sql = "Departamento = '" + t1.getText() + "'";
+						
 						bCambiar.setEnabled(new Controlador().revisar("Ayuntamiento", sql));
 
 					}
@@ -543,6 +561,8 @@ class Gui extends JFrame {
 
 			}
 		});
+		
+		
 		bChecar.setBackground(Color.WHITE);
 		panelaltas.add(bChecar);
 
@@ -685,20 +705,25 @@ class Gui extends JFrame {
 
 		JButton borrar = new JButton();
 		borrar.setBounds(200, 155, 80, 30);
-
+		imagen = new ImageIcon("src/Imagenes/edit_remove.png");
+		icono = new ImageIcon(
+				imagen.getImage().getScaledInstance(80, 30, Image.SCALE_DEFAULT));
+		borrar.setBackground(Color.white);
+		borrar.setIcon(icono);
 		borrar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (!tborr.getText().equals("") || !cm.getSelectedItem().equals("Selecciona")) {
+				if (!tborr.getText().equals("") && !cm.getSelectedItem().equals("Selecciona")) {
 
 					String sql;
 					if (opBaja.equals("Ayuntamiento")) {
 						sql = "Departamento = '" + tborr.getText() + "'";
-						new Controlador().eliminarRegistro("Ayuntamiento", sql);
+						
 						if (new Controlador().revisar("Ayuntamiento", sql)) {
-
+							new Controlador().eliminarRegistro("Ayuntamiento", sql);
+							JOptionPane.showMessageDialog(getParent(), "Registro eliminado correctamente");
 						} else {
 							JOptionPane.showMessageDialog(getParent(), "No coicide la entrada con ningun registro");
 						}
@@ -708,6 +733,7 @@ class Gui extends JFrame {
 						sql = "Nombre = '" + tborr.getText() + "'";
 						if (new Controlador().revisar("Personal", sql)) {
 							new Controlador().eliminarRegistro("Personal", sql);
+							JOptionPane.showMessageDialog(getParent(), "Registro eliminado correctamente");
 						} else {
 							JOptionPane.showMessageDialog(getParent(), "No coicide la entrada con ningun registro");
 						}
@@ -715,8 +741,9 @@ class Gui extends JFrame {
 					} else if (opBaja.equals("Sistema Recoleccion")) {
 
 						sql = "Estrategia = '" + tborr.getText() + "'";
-						if (new Controlador().revisar("Sistema Recoleccion", sql)) {
-							new Controlador().eliminarRegistro("Sistema Recoleccion", sql);
+						if (new Controlador().revisar("SistemaRecoleccion", sql)) {
+							new Controlador().eliminarRegistro("SistemaRecoleccion", sql);
+							JOptionPane.showMessageDialog(getParent(), "Registro eliminado correctamente");
 						} else {
 							JOptionPane.showMessageDialog(getParent(), "No coicide la entrada con ningun registro");
 						}
@@ -770,7 +797,13 @@ class Gui extends JFrame {
 		panelconsultas.add(tco);
 
 		JButton consultar = new JButton("Generar");
-		consultar.setBounds(200, 155, 80, 30);
+		consultar.setBounds(220, 150, 50, 50);
+		consultar.setBackground(Color.white);
+		imagen = new ImageIcon("src/Imagenes/crea.png");
+		icono = new ImageIcon(
+				imagen.getImage().getScaledInstance(consultar.getWidth(), consultar.getHeight(), Image.SCALE_DEFAULT));
+		consultar.setIcon(icono);
+		
 		panelconsultas.add(consultar);
 
 		JLabel lbC3 = new JLabel(" o ");
@@ -812,7 +845,7 @@ class Gui extends JFrame {
 						}
 						paneltabla = new JScrollPane(tabla);
 
-						paneltabla.setBounds(150, 200, 400, 200);
+						paneltabla.setBounds(150, 210, 400, 200);
 						add(paneltabla);
 
 					} else if (opBaja.equals("Personal")) {
@@ -823,7 +856,7 @@ class Gui extends JFrame {
 							tabla = new Controlador().retornarTabla("Personal Where Nombre = '" + tco.getText() + "'");
 						}
 						paneltabla = new JScrollPane(tabla);
-						paneltabla.setBounds(150, 200, 400, 200);
+						paneltabla.setBounds(150, 210, 400, 200);
 						add(paneltabla);
 
 					} else if (opBaja.equals("Sistema Recoleccion")) {
@@ -835,7 +868,7 @@ class Gui extends JFrame {
 						}
 						paneltabla = new JScrollPane(tabla);
 
-						paneltabla.setBounds(150, 200, 400, 200);
+						paneltabla.setBounds(150, 210, 400, 200);
 						add(paneltabla);
 
 					}
@@ -951,8 +984,8 @@ public class VentanaInicio {
 			@Override
 			public void run() {
 				
-				new Login();
-				//new Gui();
+				//new Login();
+				new Gui();
 
 			}
 		});
