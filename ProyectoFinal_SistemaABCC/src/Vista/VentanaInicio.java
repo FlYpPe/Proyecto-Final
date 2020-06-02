@@ -287,7 +287,7 @@ class Gui extends JFrame {
 						sql = "Values( \'" + t1.getText() + "\' , \'" + t2.getText() + "\' ,"
 								+ Integer.parseInt((String) combo2.getSelectedItem()) + ", \'" + t4.getText()
 								+ " \'); ";
-						System.out.println(sql);
+						JOptionPane.showMessageDialog(getParent(), "Registrado correctamente");
 
 						new Controlador().agregarRegistro("Ayuntamiento", sql);
 						
@@ -314,6 +314,7 @@ class Gui extends JFrame {
 								+ Integer.parseInt((String) comboB2.getSelectedItem()) + ", "
 								+ Integer.parseInt((String) combo3.getSelectedItem()) + " ); ";
 						new Controlador().agregarRegistro("Personal", sql);
+						JOptionPane.showMessageDialog(getParent(), "Registrado correctamente");
 						}
 						try {
 
@@ -343,6 +344,7 @@ class Gui extends JFrame {
 								+ Integer.parseInt((String) combo0.getSelectedItem()) + " ,"
 								+ Integer.parseInt((String) comboC2.getSelectedItem()) + ", \'" + t4b.getText()
 								+ "\'); ";
+						JOptionPane.showMessageDialog(getParent(), "Registrado correctamente");
 						System.out.println(sql);
 
 						new Controlador().agregarRegistro("SistemaRecoleccion", sql);
@@ -527,7 +529,7 @@ class Gui extends JFrame {
 						String sql = "Departamento = '" + t1.getText() + "'";
 						
 						bCambiar.setEnabled(new Controlador().revisar("Ayuntamiento", sql));
-
+						
 					}
 
 					// sql = "Departamento = '" + a.getDepartamento() + "', Estado = '" +
@@ -588,7 +590,7 @@ class Gui extends JFrame {
 									+ "'";
 
 							new Controlador().actualizar("Ayuntamiento", sql);
-
+							JOptionPane.showMessageDialog(getParent(), "Cambiado correctamente");
 						} catch (Exception e2) {
 							JOptionPane.showMessageDialog(getParent(), "Checar los datos");
 
@@ -610,7 +612,7 @@ class Gui extends JFrame {
 								+ Integer.parseInt((String) combo3.getSelectedItem()) + " WHERE Nombre = '" + t1b.getText() + "'";
 						
 						new Controlador().actualizar("Personal", sql);
-						
+						JOptionPane.showMessageDialog(getParent(), "Cambiado correctamente");
 						try {
 
 						} catch (Exception e2) {
@@ -643,7 +645,7 @@ class Gui extends JFrame {
 								+ t4b.getText() + "' WHERE Estrategia = '" + t1c.getText() + "'";
 						
 						new Controlador().actualizar("SistemaRecoleccion", sql);
-						
+						JOptionPane.showMessageDialog(getParent(), "Cambiado correctamente");
 
 						} catch (Exception e2) {
 							JOptionPane.showMessageDialog(getParent(), "Checar los datos");
@@ -711,7 +713,7 @@ class Gui extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (!tborr.getText().equals("") && !cm.getSelectedItem().equals("Selecciona")) {
+				if (!(tborr.getText().equals("") || cm.getSelectedItem().equals("Selecciona"))) {
 
 					String sql;
 					if (opBaja.equals("Ayuntamiento")) {
