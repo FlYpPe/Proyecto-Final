@@ -573,8 +573,6 @@ class Gui extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				
-
 				if (opReg.equals("Ay")) {
 
 					if (t1.getText().equals("") || t2.getText().equals("") || t4.getText().equals("")) {
@@ -653,10 +651,6 @@ class Gui extends JFrame {
 						}
 					}
 
-					/*
-					 * panelaltas.add(t1c); panelaltas.add(combo0); panelaltas.add(comboC2);
-					 * panelaltas.add(t4b);
-					 */
 
 				}
 
@@ -677,6 +671,8 @@ class Gui extends JFrame {
 		cm.setBounds(200, 55, 140, 25);
 		panelbajas.add(cm);
 
+		
+		
 		JLabel lbB2 = new JLabel("Ingrese la seccion a usar");
 		lbB2.setBounds(200, 90, 150, 20);
 		panelbajas.add(lbB2);
@@ -984,8 +980,8 @@ public class VentanaInicio {
 			@Override
 			public void run() {
 				
-				//new Login();
-				new Gui();
+				new Login();
+				
 
 			}
 		});
